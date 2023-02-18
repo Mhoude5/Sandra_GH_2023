@@ -2,3 +2,5 @@
 .docs/
 .Rhistory
 *.png
+/Output/
+/Raw_Data/
