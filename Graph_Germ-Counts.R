@@ -20,7 +20,7 @@ example_mutate <- Germ %>%
 #4 species, how many monitoring dates?, 3 salinity levels = how many rows we want
 unique(Germ$Date)
 #We have 8 unique monitoring dates
-4* 8* 3
+4* 10* 3
 #=96 total rows 
 
 #how many rows in mutate?
@@ -51,39 +51,38 @@ nrow(Germ)
 #X axis = Monitoring date
 #Y axis = Germination count
 
+unique(Germ$Date)
 
-ggplot(aes(x = Germ$Date, y = Germ$Xbar_Germ, color = Germ$Species) +
-       geom_point() +
-         facet_wrap(Germ$Salinity)#This will create a different graph for each salinity level
-       #You could facet wrap by SPECIES and that might be interesting
-)
-
-
-
-
-#I made a change for git hub practice
-
-#Example
-ggplot(aes(x=Date, y=Percent_Cover, color=SPP),
-       show.legend=T) + 
-  geom_line()+
-  geom_point(size=2) + 
-  facet_wrap(~factor(Plot, level=c('C', 'G', 'F', 'F&G', 'FtG', 'FtGp', 'NtGp'))) +
-  scale_color_manual(values = c("Alkali Bulrush" = "burlywood4",
-                                "Saltgrass" ="dodgerblue3",
-                                "Nuttall's Alkaligrass"="darkorchid3",
-                                "Phragmites" = "red")) +
-  scale_x_date(date_breaks = "1 month", date_labels =  "%b") +
-  theme(plot.margin=unit(c(0.5,1,0.5,1), 'cm')) +
+ggplot(Germ, aes(x=Date,
+           y=Xbar_Germ,
+           color = Species)) +
+  theme_bw() +
+  labs(title = "Germination Counts",
+       x = "Monitoring Date",
+       y = "Average Germination Counts") +
   theme(axis.title = element_text(size = 18),
-        legend.text = element_text(size = 18),
-        legend.title = element_text(size = 18),
-        plot.title = element_text(size = 20)) +  
-  labs(title = "Driving Species through the Growing Season", 
-       x = "Month", 
-       y = "Percent Cover")
+        plot.title = element_text(size = 22, hjust = 0.5),
+        legend.text = element_text(size = 16),
+        legend.title = element_text(size = 18)) +
+  geom_point(size = 4) +
+  geom_line() +
+  facet_wrap(~factor(Salinity, level = c("Fresh", "25", "40")))
+#You can rearrange factor ordering at the data frame level, 
+#HERE, we rearranged it (temporarily) inside the ggplot call
+#This did not change it at the data frame level
+levels(Germ$Salinity)
+
+#NEXT STEPS: Increase white space around x and y axis labels, as well as main title
+#Create a new .R file, where you will create another graph that shows individual species
+#with all 3 salinity levels (here, color = Salinity)
+#your facet wrap would be Species
 
 
-
-
+setwd("~/Experiments_R/Sandra_GH_2023/Output")
+ggsave(filename = "Test_Graph.png", 
+       device = "png", # tiff or pdf for saving publication-quality figures
+       width = 14, # define the width of the plot in your units of choice
+       height = 8, # define the height of the plot in your units of choice
+       units = "in", # define your units of choice ("in" stands for inches)
+       dpi = 200)
 

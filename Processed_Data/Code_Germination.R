@@ -61,6 +61,17 @@ levels(Germ$Column)
 levels(Germ$Row)
 levels(Germ$Salinity)
 
+#Let's create a new column
+day <- seq(from = 3, to = 30, by = 3)
+day
+unique(Germ$Date)
+
+#Maddie will figure out how to add day onto monitoring dates----
+Test <- Germ %>%
+  dplyr::mutate(Day = day)
+
+
+
 #Lets save your dataframe, its still "raw", but its cleaned up 
 #And we dont want to do all this cleaning in the future
 
