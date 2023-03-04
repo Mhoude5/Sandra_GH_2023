@@ -39,7 +39,7 @@ nrow(example_summarize)#this is 96, which is what we expected!
 
 
 Germ <- Germ %>% 
-  dplyr::group_by(Species, Salinity, Date) %>%
+  dplyr::group_by(Species, Salinity, Day) %>%
   dplyr::summarize(Xbar_Germ = mean(Emergence)) %>%
   dplyr::ungroup()
 nrow(Germ)
@@ -48,17 +48,17 @@ nrow(Germ)
 #GRAPH ----
 #We want to create 3 graphs, one for each salinity level, that will have 
 #All 4 species on it. 
-#X axis = Monitoring date
+#X axis = Monitoring day
 #Y axis = Germination count
 
-unique(Germ$Date)
+unique(Germ$Day)
 
-ggplot(Germ, aes(x=Date,
+ggplot(Germ, aes(x=Day,
            y=Xbar_Germ,
            color = Species)) +
   theme_bw() +
   labs(title = "Germination Counts",
-       x = "Monitoring Date",
+       x = "Monitoring Day",
        y = "Average Germination Counts") +
   theme(axis.title = element_text(size = 18),
         plot.title = element_text(size = 22, hjust = 0.5),
@@ -72,10 +72,13 @@ ggplot(Germ, aes(x=Date,
 #This did not change it at the data frame level
 levels(Germ$Salinity)
 
-#NEXT STEPS: Increase white space around x and y axis labels, as well as main title
-#Create a new .R file, where you will create another graph that shows individual species
-#with all 3 salinity levels (here, color = Salinity)
-#your facet wrap would be Species
+#NEXT STEPS ----
+#Increase white space around x and y axis labels, as well as main title
+#You can manually specify the x axis intervals 
+#(it would be nice to have more than 10, 20, 30 on x axis)
+
+#Create a new .R script, where you will create another graph that shows individual species
+#with all 3 salinity levels (here, color = Salinity, facet_wrap by Species)
 
 
 setwd("~/Experiments_R/Sandra_GH_2023/Output")

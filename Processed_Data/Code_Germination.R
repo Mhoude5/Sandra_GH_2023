@@ -1,3 +1,4 @@
+library(magrittr)
 getwd()
 setwd("~/Experiments_R/Sandra_GH_2023/Raw_Data")
 getwd()
@@ -66,9 +67,20 @@ day <- seq(from = 3, to = 30, by = 3)
 day
 unique(Germ$Date)
 
-#Maddie will figure out how to add day onto monitoring dates----
-Test <- Germ %>%
-  dplyr::mutate(Day = day)
+#Adding a column for monitoring day(s)
+Germ <- Germ %>%
+  dplyr::mutate(Day = dplyr::case_when(
+                          Date == "2023-01-30" ~ 3,
+                          Date == "2023-02-02" ~ 6,
+                          Date == "2023-02-05" ~ 9,
+                          Date == "2023-02-08" ~ 12,
+                          Date == "2023-02-11" ~ 15,
+                          Date == "2023-02-14" ~ 18,
+                          Date == "2023-02-17" ~ 21,
+                          Date == "2023-02-20" ~ 24,
+                          Date == "2023-02-23" ~ 27,
+                          Date == "2023-02-27" ~ 31
+  ))
 
 
 
