@@ -10,6 +10,7 @@ list.files()
 load("DF_Germination.Rdata")
 head(Germ, 10)
 
+
   
 #Should we use mutate or summarize?
 example_mutate <- Germ %>%
@@ -52,6 +53,7 @@ nrow(Germ)
 #Y axis = Germination count
 
 unique(Germ$Day)
+vec2 <- c("dodgerblue", "lightgoldenrod", 'indianred')
 
 ggplot(Germ, aes(x=Day,
            y=Xbar_Germ,
@@ -64,9 +66,13 @@ ggplot(Germ, aes(x=Day,
         plot.title = element_text(size = 22, hjust = 0.5),
         legend.text = element_text(size = 16),
         legend.title = element_text(size = 18)) +
-  geom_point(size = 4) +
+  geom_point(size = 4
+             ) +
   geom_line() +
-  facet_wrap(~factor(Salinity, level = c("Fresh", "25", "40")))
+  facet_wrap(~factor(Salinity, level = c("Fresh", "25", "40")))+
+  scale_color_manual(values=vec2)
+  
+
 #You can rearrange factor ordering at the data frame level, 
 #HERE, we rearranged it (temporarily) inside the ggplot call
 #This did not change it at the data frame level
@@ -88,4 +94,14 @@ ggsave(filename = "Test_Graph.png",
        height = 8, # define the height of the plot in your units of choice
        units = "in", # define your units of choice ("in" stands for inches)
        dpi = 200)
+ggsave(filename = "Final_maingraph.png",
+       device = "png", # tiff or pdf for saving publication-quality figures
+       width = 14, # define the width of the plot in your units of choice
+       height = 8, # define the height of the plot in your units of choice
+       units = "in", # define your units of choice ("in" stands for inches)
+       dpi = 200)
+setwd("~/Experiments_R/Sandra_GH_2023/Processed_Data")
+Germ_mean <- Germ
+
+save(Germ_mean, file="Germ_mean.Rdata")
 
