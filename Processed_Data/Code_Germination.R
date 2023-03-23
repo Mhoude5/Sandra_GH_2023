@@ -10,9 +10,6 @@ sapply(Germ, class)
 #Drop columns we don't need
 #row, column
 Germ <- Germ[ , -c(7, 8, 9)]
-
-
-names(Germ)[c(4, 6)]<-c("Salinity", "Emergence") #rename columns
 head(Germ, 2)
 
 #Change class
@@ -39,11 +36,11 @@ Germ$Date <- lubridate::mdy(Germ$Date)
 class(Germ$Date)
 
 which(is.na(Germ$Emergence))
-#we have NA's because we havent put in all of our data
+#no NAs 
 
 tail(Germ) #check how many rows we have #here it is 480
-#We know that NA's start on row 385 #(which(is.na))
-#After omitting NA's, we should have 384 remaining rows
+
+#If we had NAs that we wished to remove we could
 Germ <- na.omit(Germ)
 tail(Germ) #this works but is annoying because it prints your entire DF
 which(is.na(Germ)) #This specifies which row NA's (or other functions) occur on
@@ -55,7 +52,7 @@ min(Germ$Emergence)
 max(Germ$Emergence)
 
 
-levels(Germ$Species) #slow way to check factor levels (check for typos)
+levels(Germ$Species) #one way to check factor levels (check for typos)
 #levels(Germ[ , 4)]) #Different way to check factor levels
 
 #This is the better way, because its easier to read what you're doing
