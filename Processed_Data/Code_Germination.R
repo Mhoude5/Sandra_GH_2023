@@ -11,6 +11,7 @@ sapply(Germ, class)
 #row, column
 Germ <- Germ[ , -c(7, 8, 9)]
 
+
 names(Germ)[c(4, 6)]<-c("Salinity", "Emergence") #rename columns
 head(Germ, 2)
 
@@ -82,6 +83,17 @@ Germ <- Germ %>%
                           Date == "2023-02-27" ~ 31
   ))
 
+#We will remove DISP from our analyses and graphs, because it had such low germination
+temp <- Germ %>% dplyr::filter(Species == "DISP") 
+head(temp)
+sum(temp$Emergence) #3 germination total
+
+
+#480 in Germ minus 120 temp = 360 after removing DISP
+#vector of species to keep 
+vec <- c("PHAU", "ALOC", "SARU")
+Germ <- Germ %>%
+  dplyr::filter(Species %in% vec)
 
 
 #Lets save your dataframe, its still "raw", but its cleaned up 
