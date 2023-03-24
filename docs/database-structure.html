@@ -23,7 +23,7 @@
 <meta name="author" content="Maddie Houde" />
 
 
-<meta name="date" content="2023-03-23" />
+<meta name="date" content="2023-03-24" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -165,7 +165,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Reproducible Data Science Final Project</h1>
 <p class="author"><em>Maddie Houde</em></p>
-<p class="date"><em>2023-03-23</em></p>
+<p class="date"><em>2023-03-24</em></p>
 </div>
 <div id="database-structure" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">Chapter 1</span> Database Structure<a href="#database-structure" class="anchor-section" aria-label="Anchor link to header"></a></h1>
@@ -188,7 +188,7 @@ Figure 1.1: Figure 1. Database Structure
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span></code></pre></div>
 <pre><code>## Warning: package &#39;DBI&#39; was built under R version 4.1.3</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Sandra_db <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">&quot;~/Experiments_R/Sandra_GH_2023/Sandra_db.db&quot;</span>)</span></code></pre></div>
-<p>Since we already created this database in an .R script, we will first delete any existing tables</p>
+<p>Since we already created this database in an .R script, we will first delete any existing tables.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;DROP TABLE Germination;&quot;</span>) </span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;DROP TABLE EC_Final;&quot;</span>)</span></code></pre></div>
@@ -261,7 +261,7 @@ Figure 1.1: Figure 1. Database Structure
 </div>
 <div id="read-our-csv-files-and-connect-them" class="section level2 hasAnchor" number="1.3">
 <h2><span class="header-section-number">1.3</span> Read our CSV files and connect them<a href="#read-our-csv-files-and-connect-them" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Let’s read in all of our .csv files</p>
+<p>Let’s read in all of our .csv files.</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Sample_Location <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Raw_Data/Sample_Location.csv&quot;</span>) </span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>Germination <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Raw_Data/Germination.csv&quot;</span>) </span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>EC_Final <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Raw_Data/EC_Final.csv&quot;</span>) </span></code></pre></div>

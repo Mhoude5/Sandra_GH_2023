@@ -22,7 +22,7 @@ library(DBI)
 Sandra_db <- dbConnect(RSQLite::SQLite(), "~/Experiments_R/Sandra_GH_2023/Sandra_db.db")
 ```
 
-Since we already created this database in an .R script, we will first delete any existing tables
+Since we already created this database in an .R script, we will first delete any existing tables.
 ```{r Delete existing tables}
 dbExecute(Sandra_db, "DROP TABLE Germination;") 
 dbExecute(Sandra_db, "DROP TABLE EC_Final;")
@@ -89,7 +89,7 @@ dbGetQuery(Sandra_db, "SELECT * FROM EC_Final;")
 ```
 
 ## Read our CSV files and connect them
-Let's read in all of our .csv files
+Let's read in all of our .csv files.
 ```{r Read CSVs}
 Sample_Location <- read.csv("../Raw_Data/Sample_Location.csv") 
 Germination <- read.csv("../Raw_Data/Germination.csv") 
