@@ -97,8 +97,10 @@ dbWriteTable(Sandra_db, "EC_Final", EC_Final, append = TRUE)
 dbGetQuery(Sandra_db, "SELECT * FROM EC_Final LIMIT 10;")
 
 
-# Code if you had to drop table: 
-# dbExecute(Sandra_db, "DROP TABLE Germination;") #drop table
-# dbExecute(Sandra_db, "DROP TABLE EC_Final;")
-
+# Since we will create these tables in Bookdown, I am going to delete them 
+# from here
+dbExecute(Sandra_db, "DROP TABLE Germination;") #drop table
+dbExecute(Sandra_db, "DROP TABLE EC_Final;")
+dbExecute(Sandra_db, "DROP TABLE Sample_Location;")
+dbGetQuery(Sandra_db, "SELECT * FROM EC_Final LIMIT 10;")
 

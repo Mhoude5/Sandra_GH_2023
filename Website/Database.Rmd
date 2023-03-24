@@ -1,0 +1,129 @@
+
+# Database Structure
+
+## Describing the relational structures in Sandra Johnston's 2023 Greenhouse Experiment. 
+
+In this section, I will describe the relational data structure used in Sandra's 2023 Greenhouse experiment. I will then create a SQL database to establish these .csv connections. To begin - here is a photo showing the 3 main .csv files used in this research project and the ways in which they connect.
+
+```{r image, fig.cap="Figure 1. Database Structure", fig.align='center', out.width='100%', echo=FALSE}
+knitr::include_graphics("../database.png")
+```
+Sample_Location describes the Species, Treatment, and Location of the 48 samples in this research project.
+
+Germination lists germination counts taken every 3rd day for each sample for the length of the experiment. Germination relates to Sample_Location through the foreign key "Species_Tmt_Pos".
+
+EC_Final shows the final soil salinity for each sample taken from the top and bottom of the sample pots. EC_Final relates to Sample_Location through the foreign key "Species_Tmt_Pos".
+
+## Build database tables
+Here, I load the package, then I create a database and connect to it in the same line of code using dbConnect.
+```{r Building SQLite Tables}
+library(DBI)
+
+Sandra_db <- dbConnect(RSQLite::SQLite(), "~/Experiments_R/Sandra_GH_2023/Sandra_db.db")
+```
+
+Since we already created this database in an .R script, we will first delete any existing tables
+```{r Delete existing tables}
+dbExecute(Sandra_db, "DROP TABLE Germination;") 
+dbExecute(Sandra_db, "DROP TABLE EC_Final;")
+dbExecute(Sandra_db, "DROP TABLE Sample_Location;")
+```
+
+Now we will build the Sample_Location table.
+```{r Sample_Location}
+dbExecute(Sandra_db, "CREATE TABLE Sample_Location (
+Species_Tmt_Pos varchar(15) NOT NULL,
+Species char(4) NOT NULL,
+Column integer(1) NOT NULL,
+Row integer(1) NOT NULL,
+Salinity varchar(5) NOT NULL,
+PRIMARY KEY(Species_Tmt_Pos)
+);")
+```
+
+Next, we will build the Germination table.
+```{r Germination}
+dbExecute(Sandra_db, "CREATE TABLE Germination (
+auto_id integer PRIMARY KEY AUTOINCREMENT,
+Species char(4) NOT NULL,
+Column integer(1) NOT NULL,
+Row integer(1) NOT NULL,
+Salinity varchar(5) NOT NULL,
+Date varchar(10) NOT NULL,
+Emergence integer NOT NULL,
+Observer char(2) NOT NULL,
+Notes varchar(150) NOT NULL,
+Checked_by char(2) NOT NULL,
+Species_Tmt_Pos varchar(15) NOT NULL,
+FOREIGN KEY (Species_Tmt_Pos) REFERENCES Sample_Location(Species_Tmt_Pos)
+);")
+```
+
+Last, we will build the EC_Final table.
+```{r EC_Final}
+dbExecute(Sandra_db, "CREATE TABLE EC_Final(
+Sample varchar(8) NOT NULL,
+Start_Time varchar(12) NOT NULL,
+Soil_Weight_g double(10) NOT NULL,
+Water_Rate_mL double(10) NOT NULL,
+Time_of_Measurement varchar(12) NOT NULL,
+EC_microS_cm integer(6) NOT NULL,
+PSU double(4) NOT NULL,
+Temperature_C double(4) NOT NULL,
+ECe_microS_cm double(15) NOT NULL,
+ECe_dS_m double(4) NOT NULL,
+PSU_e double(4) NOT NULL,
+Target_Salinity varchar(5) NOT NULL,
+remeasure varchar(75),
+Species_Tmt_Pos varchar(15) NOT NULL,
+FOREIGN KEY (Species_Tmt_Pos) REFERENCES Sample_Location(Species_Tmt_Pos),
+PRIMARY KEY (Sample)
+);")
+```
+
+Let's check these tables using dbGetQuery to ensure they meet our needs.
+```{r check tables}
+dbGetQuery(Sandra_db, "SELECT * FROM Sample_Location;")
+dbGetQuery(Sandra_db, "SELECT * FROM Germination;")
+dbGetQuery(Sandra_db, "SELECT * FROM EC_Final;")
+```
+
+## Read our CSV files and connect them
+Let's read in all of our .csv files
+```{r Read CSVs}
+Sample_Location <- read.csv("../Raw_Data/Sample_Location.csv") 
+Germination <- read.csv("../Raw_Data/Germination.csv") 
+EC_Final <- read.csv("../Raw_Data/EC_Final.csv") 
+```
+
+Now, we need to ensure that the column names match *exactly* the naming convention and order of the SQL tables. We will do this through the head() command, and then rearrange the columns as needed.
+
+```{r match column names}
+head(Germination, 2)
+Germination$auto_id <- 1:nrow(Germination)
+Germination <- Germination[, c(11, 1:10)]
+
+head(EC_Final, 2)
+EC_Final <- EC_Final[, c(1, 3:14, 2)]
+```
+
+The EC_Final data is not entirely filled in yet. We will omit any rows with NA for the purposes of this assignment.
+```{r omit.NAs}
+EC_Final <- na.omit(EC_Final)
+```
+
+Now that our .csv files are neat and tidy, we can connect them to our database tables.
+```{r connect csvs}
+dbWriteTable(Sandra_db, "Germination", Germination, append = TRUE)
+dbWriteTable(Sandra_db, "EC_Final", EC_Final, append = TRUE)
+dbWriteTable(Sandra_db, "Sample_Location", Sample_Location, append = TRUE)
+```
+
+As always, double check your work.
+```{r double check tables}
+dbGetQuery(Sandra_db, "SELECT * FROM Sample_Location LIMIT 5;")
+dbGetQuery(Sandra_db, "SELECT * FROM Germination LIMIT 5;")
+dbGetQuery(Sandra_db, "SELECT * FROM EC_Final LIMIT 5;")
+```
+
+

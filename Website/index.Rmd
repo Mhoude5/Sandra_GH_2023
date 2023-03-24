@@ -1,0 +1,14 @@
+--- 
+title: "Reproducible Data Science Final Project"
+author: "Maddie Houde"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  Where I will share assignments with Simona Picardi for classwork.
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+---
