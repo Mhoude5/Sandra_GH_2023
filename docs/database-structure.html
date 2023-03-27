@@ -4,33 +4,39 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Reproducible Data Science Final Project</title>
-  <meta name="description" content="Where I will share assignments with Simona Picardi for classwork." />
+  <title>Chapter 2 Database Structure | A Minimal Book Example</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Reproducible Data Science Final Project" />
+  <meta property="og:title" content="Chapter 2 Database Structure | A Minimal Book Example" />
   <meta property="og:type" content="book" />
   
-  <meta property="og:description" content="Where I will share assignments with Simona Picardi for classwork." />
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Reproducible Data Science Final Project" />
+  <meta name="twitter:title" content="Chapter 2 Database Structure | A Minimal Book Example" />
   
-  <meta name="twitter:description" content="Where I will share assignments with Simona Picardi for classwork." />
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
   
 
-<meta name="author" content="Maddie Houde" />
+<meta name="author" content="John Doe" />
 
 
-<meta name="date" content="2023-03-24" />
+<meta name="date" content="2023-03-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
+<link rel="prev" href="index.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -133,14 +139,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Greenhouse 2023 Salinity Experiment</a></li>
+<li><a href="./">Reproducible Data Science Final Project</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="Database.html"><a href="#database-structure"><i class="fa fa-check"></i><b>1</b> Database Structure</a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="Database.html"><a href="#describing-the-relational-structures-in-sandra-johnstons-2023-greenhouse-experiment."><i class="fa fa-check"></i><b>1.1</b> Describing the relational structures in Sandra Johnston’s 2023 Greenhouse Experiment.</a></li>
-<li class="chapter" data-level="1.2" data-path="Database.html"><a href="#build-database-tables"><i class="fa fa-check"></i><b>1.2</b> Build database tables</a></li>
-<li class="chapter" data-level="1.3" data-path="Database.html"><a href="#read-our-csv-files-and-connect-them"><i class="fa fa-check"></i><b>1.3</b> Read our CSV files and connect them</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#render-book"><i class="fa fa-check"></i><b>1.2</b> Render book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#preview-book"><i class="fa fa-check"></i><b>1.3</b> Preview book</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="database-structure.html"><a href="database-structure.html"><i class="fa fa-check"></i><b>2</b> Database Structure</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="database-structure.html"><a href="database-structure.html#describing-the-relational-structures-in-sandra-johnstons-2023-greenhouse-experiment."><i class="fa fa-check"></i><b>2.1</b> Describing the relational structures in Sandra Johnston’s 2023 Greenhouse Experiment.</a></li>
+<li class="chapter" data-level="2.2" data-path="database-structure.html"><a href="database-structure.html#build-database-tables"><i class="fa fa-check"></i><b>2.2</b> Build database tables</a></li>
+<li class="chapter" data-level="2.3" data-path="database-structure.html"><a href="database-structure.html#read-our-csv-files-and-connect-them"><i class="fa fa-check"></i><b>2.3</b> Read our CSV files and connect them</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -154,7 +166,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Reproducible Data Science Final Project</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
           </h1>
         </div>
 
@@ -162,96 +174,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Reproducible Data Science Final Project</h1>
-<p class="author"><em>Maddie Houde</em></p>
-<p class="date"><em>2023-03-24</em></p>
-</div>
-<div id="database-structure" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> Database Structure<a href="#database-structure" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="describing-the-relational-structures-in-sandra-johnstons-2023-greenhouse-experiment." class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Describing the relational structures in Sandra Johnston’s 2023 Greenhouse Experiment.<a href="#describing-the-relational-structures-in-sandra-johnstons-2023-greenhouse-experiment." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="database-structure" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Database Structure<a href="database-structure.html#database-structure" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="describing-the-relational-structures-in-sandra-johnstons-2023-greenhouse-experiment." class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Describing the relational structures in Sandra Johnston’s 2023 Greenhouse Experiment.<a href="database-structure.html#describing-the-relational-structures-in-sandra-johnstons-2023-greenhouse-experiment." class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this section, I will describe the relational data structure used in Sandra’s 2023 Greenhouse experiment. I will then create a SQL database to establish these .csv connections. To begin - here is a photo showing the 3 main .csv files used in this research project and the ways in which they connect.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:image"></span>
 <img src="../database.png" alt="Figure 1. Database Structure" width="100%" />
 <p class="caption">
-Figure 1.1: Figure 1. Database Structure
+Figure 2.1: Figure 1. Database Structure
 </p>
 </div>
 <p>Sample_Location describes the Species, Treatment, and Location of the 48 samples in this research project.</p>
 <p>Germination lists germination counts taken every 3rd day for each sample for the length of the experiment. Germination relates to Sample_Location through the foreign key “Species_Tmt_Pos”.</p>
 <p>EC_Final shows the final soil salinity for each sample taken from the top and bottom of the sample pots. EC_Final relates to Sample_Location through the foreign key “Species_Tmt_Pos”.</p>
 </div>
-<div id="build-database-tables" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Build database tables<a href="#build-database-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="build-database-tables" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Build database tables<a href="database-structure.html#build-database-tables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Here, I load the package, then I create a database and connect to it in the same line of code using dbConnect.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="database-structure.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DBI)</span></code></pre></div>
 <pre><code>## Warning: package &#39;DBI&#39; was built under R version 4.1.3</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Sandra_db <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">&quot;~/Experiments_R/Sandra_GH_2023/Sandra_db.db&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="database-structure.html#cb5-1" aria-hidden="true" tabindex="-1"></a>Sandra_db <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(), <span class="st">&quot;~/Experiments_R/Sandra_GH_2023/Sandra_db.db&quot;</span>)</span></code></pre></div>
 <p>Since we already created this database in an .R script, we will first delete any existing tables.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;DROP TABLE Germination;&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="database-structure.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;DROP TABLE Germination;&quot;</span>) </span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;DROP TABLE EC_Final;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="database-structure.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;DROP TABLE EC_Final;&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;DROP TABLE Sample_Location;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="database-structure.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;DROP TABLE Sample_Location;&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Now we will build the Sample_Location table.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;CREATE TABLE Sample_Location (</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="st">Species_Tmt_Pos varchar(15) NOT NULL,</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="st">Species char(4) NOT NULL,</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="st">Column integer(1) NOT NULL,</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="st">Row integer(1) NOT NULL,</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="st">Salinity varchar(5) NOT NULL,</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="st">PRIMARY KEY(Species_Tmt_Pos)</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="st">);&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="database-structure.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;CREATE TABLE Sample_Location (</span></span>
+<span id="cb12-2"><a href="database-structure.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">Species_Tmt_Pos varchar(15) NOT NULL,</span></span>
+<span id="cb12-3"><a href="database-structure.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="st">Species char(4) NOT NULL,</span></span>
+<span id="cb12-4"><a href="database-structure.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="st">Column integer(1) NOT NULL,</span></span>
+<span id="cb12-5"><a href="database-structure.html#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="st">Row integer(1) NOT NULL,</span></span>
+<span id="cb12-6"><a href="database-structure.html#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="st">Salinity varchar(5) NOT NULL,</span></span>
+<span id="cb12-7"><a href="database-structure.html#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="st">PRIMARY KEY(Species_Tmt_Pos)</span></span>
+<span id="cb12-8"><a href="database-structure.html#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="st">);&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Next, we will build the Germination table.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;CREATE TABLE Germination (</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="st">auto_id integer PRIMARY KEY AUTOINCREMENT,</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="st">Species char(4) NOT NULL,</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="st">Column integer(1) NOT NULL,</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="st">Row integer(1) NOT NULL,</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="st">Salinity varchar(5) NOT NULL,</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="st">Date varchar(10) NOT NULL,</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="st">Emergence integer NOT NULL,</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="st">Observer char(2) NOT NULL,</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="st">Notes varchar(150) NOT NULL,</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="st">Checked_by char(2) NOT NULL,</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="st">Species_Tmt_Pos varchar(15) NOT NULL,</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="st">FOREIGN KEY (Species_Tmt_Pos) REFERENCES Sample_Location(Species_Tmt_Pos)</span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="st">);&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="database-structure.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;CREATE TABLE Germination (</span></span>
+<span id="cb14-2"><a href="database-structure.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">auto_id integer PRIMARY KEY AUTOINCREMENT,</span></span>
+<span id="cb14-3"><a href="database-structure.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">Species char(4) NOT NULL,</span></span>
+<span id="cb14-4"><a href="database-structure.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="st">Column integer(1) NOT NULL,</span></span>
+<span id="cb14-5"><a href="database-structure.html#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">Row integer(1) NOT NULL,</span></span>
+<span id="cb14-6"><a href="database-structure.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">Salinity varchar(5) NOT NULL,</span></span>
+<span id="cb14-7"><a href="database-structure.html#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">Date varchar(10) NOT NULL,</span></span>
+<span id="cb14-8"><a href="database-structure.html#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="st">Emergence integer NOT NULL,</span></span>
+<span id="cb14-9"><a href="database-structure.html#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="st">Observer char(2) NOT NULL,</span></span>
+<span id="cb14-10"><a href="database-structure.html#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="st">Notes varchar(150) NOT NULL,</span></span>
+<span id="cb14-11"><a href="database-structure.html#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="st">Checked_by char(2) NOT NULL,</span></span>
+<span id="cb14-12"><a href="database-structure.html#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="st">Species_Tmt_Pos varchar(15) NOT NULL,</span></span>
+<span id="cb14-13"><a href="database-structure.html#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="st">FOREIGN KEY (Species_Tmt_Pos) REFERENCES Sample_Location(Species_Tmt_Pos)</span></span>
+<span id="cb14-14"><a href="database-structure.html#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="st">);&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Last, we will build the EC_Final table.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;CREATE TABLE EC_Final(</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">Sample varchar(8) NOT NULL,</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">Start_Time varchar(12) NOT NULL,</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="st">Soil_Weight_g double(10) NOT NULL,</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">Water_Rate_mL double(10) NOT NULL,</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">Time_of_Measurement varchar(12) NOT NULL,</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">EC_microS_cm integer(6) NOT NULL,</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="st">PSU double(4) NOT NULL,</span></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="st">Temperature_C double(4) NOT NULL,</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="st">ECe_microS_cm double(15) NOT NULL,</span></span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="st">ECe_dS_m double(4) NOT NULL,</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="st">PSU_e double(4) NOT NULL,</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="st">Target_Salinity varchar(5) NOT NULL,</span></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="st">remeasure varchar(75),</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="st">Species_Tmt_Pos varchar(15) NOT NULL,</span></span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="st">FOREIGN KEY (Species_Tmt_Pos) REFERENCES Sample_Location(Species_Tmt_Pos),</span></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="st">PRIMARY KEY (Sample)</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="st">);&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="database-structure.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;CREATE TABLE EC_Final(</span></span>
+<span id="cb16-2"><a href="database-structure.html#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="st">Sample varchar(8) NOT NULL,</span></span>
+<span id="cb16-3"><a href="database-structure.html#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="st">Start_Time varchar(12) NOT NULL,</span></span>
+<span id="cb16-4"><a href="database-structure.html#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="st">Soil_Weight_g double(10) NOT NULL,</span></span>
+<span id="cb16-5"><a href="database-structure.html#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="st">Water_Rate_mL double(10) NOT NULL,</span></span>
+<span id="cb16-6"><a href="database-structure.html#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="st">Time_of_Measurement varchar(12) NOT NULL,</span></span>
+<span id="cb16-7"><a href="database-structure.html#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="st">EC_microS_cm integer(6) NOT NULL,</span></span>
+<span id="cb16-8"><a href="database-structure.html#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="st">PSU double(4) NOT NULL,</span></span>
+<span id="cb16-9"><a href="database-structure.html#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="st">Temperature_C double(4) NOT NULL,</span></span>
+<span id="cb16-10"><a href="database-structure.html#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="st">ECe_microS_cm double(15) NOT NULL,</span></span>
+<span id="cb16-11"><a href="database-structure.html#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="st">ECe_dS_m double(4) NOT NULL,</span></span>
+<span id="cb16-12"><a href="database-structure.html#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="st">PSU_e double(4) NOT NULL,</span></span>
+<span id="cb16-13"><a href="database-structure.html#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="st">Target_Salinity varchar(5) NOT NULL,</span></span>
+<span id="cb16-14"><a href="database-structure.html#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="st">remeasure varchar(75),</span></span>
+<span id="cb16-15"><a href="database-structure.html#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="st">Species_Tmt_Pos varchar(15) NOT NULL,</span></span>
+<span id="cb16-16"><a href="database-structure.html#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="st">FOREIGN KEY (Species_Tmt_Pos) REFERENCES Sample_Location(Species_Tmt_Pos),</span></span>
+<span id="cb16-17"><a href="database-structure.html#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="st">PRIMARY KEY (Sample)</span></span>
+<span id="cb16-18"><a href="database-structure.html#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="st">);&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Let’s check these tables using dbGetQuery to ensure they meet our needs.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM Sample_Location;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="database-structure.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM Sample_Location;&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] Species_Tmt_Pos Species         Column          Row            
 ## [5] Salinity       
 ## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM Germination;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="database-structure.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM Germination;&quot;</span>)</span></code></pre></div>
 <pre><code>##  [1] auto_id         Species         Column          Row            
 ##  [5] Salinity        Date            Emergence       Observer       
 ##  [9] Notes           Checked_by      Species_Tmt_Pos
 ## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM EC_Final;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="database-structure.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM EC_Final;&quot;</span>)</span></code></pre></div>
 <pre><code>##  [1] Sample              Start_Time          Soil_Weight_g      
 ##  [4] Water_Rate_mL       Time_of_Measurement EC_microS_cm       
 ##  [7] PSU                 Temperature_C       ECe_microS_cm      
@@ -259,14 +266,14 @@ Figure 1.1: Figure 1. Database Structure
 ## [13] remeasure           Species_Tmt_Pos    
 ## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
 </div>
-<div id="read-our-csv-files-and-connect-them" class="section level2 hasAnchor" number="1.3">
-<h2><span class="header-section-number">1.3</span> Read our CSV files and connect them<a href="#read-our-csv-files-and-connect-them" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="read-our-csv-files-and-connect-them" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Read our CSV files and connect them<a href="database-structure.html#read-our-csv-files-and-connect-them" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Let’s read in all of our .csv files.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Sample_Location <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Raw_Data/Sample_Location.csv&quot;</span>) </span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>Germination <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Raw_Data/Germination.csv&quot;</span>) </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>EC_Final <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Raw_Data/EC_Final.csv&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="database-structure.html#cb24-1" aria-hidden="true" tabindex="-1"></a>Sample_Location <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Raw_Data/Sample_Location.csv&quot;</span>) </span>
+<span id="cb24-2"><a href="database-structure.html#cb24-2" aria-hidden="true" tabindex="-1"></a>Germination <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Raw_Data/Germination.csv&quot;</span>) </span>
+<span id="cb24-3"><a href="database-structure.html#cb24-3" aria-hidden="true" tabindex="-1"></a>EC_Final <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;../Raw_Data/EC_Final.csv&quot;</span>) </span></code></pre></div>
 <p>Now, we need to ensure that the column names match <em>exactly</em> the naming convention and order of the SQL tables. We will do this through the head() command, and then rearrange the columns as needed.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Germination, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="database-structure.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Germination, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##   Species Column Row Salinity    Date Emergence Observer
 ## 1    PHAU      1   1    Fresh 1/30/23         0       MH
 ## 2    SARU      1   1    Fresh 1/30/23         0       MH
@@ -276,10 +283,10 @@ Figure 1.1: Figure 1. Database Structure
 ##   Checked_by Species_Tmt_Pos
 ## 1         SJ PHAU_Fresh_C1R1
 ## 2         SJ SARU_Fresh_C1R1</code></pre>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>Germination<span class="sc">$</span>auto_id <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Germination)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>Germination <span class="ot">&lt;-</span> Germination[, <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)]</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(EC_Final, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="database-structure.html#cb27-1" aria-hidden="true" tabindex="-1"></a>Germination<span class="sc">$</span>auto_id <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(Germination)</span>
+<span id="cb27-2"><a href="database-structure.html#cb27-2" aria-hidden="true" tabindex="-1"></a>Germination <span class="ot">&lt;-</span> Germination[, <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)]</span>
+<span id="cb27-3"><a href="database-structure.html#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="database-structure.html#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(EC_Final, <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##     Sample Species_Tmt_Pos Start_Time Soil_Weight_g Water_Rate_mL
 ## 1  SM-C-B2                 1:24:00 PM         4.517         22.58
 ## 2 C2-R3-DT    DISP_40_C2R3 1:57:00 PM        10.304         51.52
@@ -289,22 +296,22 @@ Figure 1.1: Figure 1. Database Structure
 ##   PSU_e Target_Salinity                    remeasure
 ## 1    NA       Adriennes                             
 ## 2 24.73              40 20210 micS/cm, 11.41 psu, na</code></pre>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>EC_Final <span class="ot">&lt;-</span> EC_Final[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">14</span>, <span class="dv">2</span>)]</span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="database-structure.html#cb29-1" aria-hidden="true" tabindex="-1"></a>EC_Final <span class="ot">&lt;-</span> EC_Final[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">14</span>, <span class="dv">2</span>)]</span></code></pre></div>
 <p>The EC_Final data is not entirely filled in yet. We will omit any rows with NA for the purposes of this assignment.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>EC_Final <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(EC_Final)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="database-structure.html#cb30-1" aria-hidden="true" tabindex="-1"></a>EC_Final <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(EC_Final)</span></code></pre></div>
 <p>Now that our .csv files are neat and tidy, we can connect them to our database tables.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(Sandra_db, <span class="st">&quot;Germination&quot;</span>, Germination, <span class="at">append =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(Sandra_db, <span class="st">&quot;EC_Final&quot;</span>, EC_Final, <span class="at">append =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(Sandra_db, <span class="st">&quot;Sample_Location&quot;</span>, Sample_Location, <span class="at">append =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="database-structure.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(Sandra_db, <span class="st">&quot;Germination&quot;</span>, Germination, <span class="at">append =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-2"><a href="database-structure.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(Sandra_db, <span class="st">&quot;EC_Final&quot;</span>, EC_Final, <span class="at">append =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb31-3"><a href="database-structure.html#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dbWriteTable</span>(Sandra_db, <span class="st">&quot;Sample_Location&quot;</span>, Sample_Location, <span class="at">append =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>As always, double check your work.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM Sample_Location LIMIT 5;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="database-structure.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM Sample_Location LIMIT 5;&quot;</span>)</span></code></pre></div>
 <pre><code>##   Species_Tmt_Pos Species Column Row Salinity
 ## 1 PHAU_Fresh_C1R1    PHAU      1   1    Fresh
 ## 2 SARU_Fresh_C1R1    SARU      1   1    Fresh
 ## 3 DISP_Fresh_C1R1    DISP      1   1    Fresh
 ## 4 ALOC_Fresh_C1R1    ALOC      1   1    Fresh
 ## 5    PHAU_40_C1R2    PHAU      1   2       40</code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM Germination LIMIT 5;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="database-structure.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM Germination LIMIT 5;&quot;</span>)</span></code></pre></div>
 <pre><code>##   auto_id Species Column Row Salinity    Date Emergence Observer
 ## 1       1    PHAU      1   1    Fresh 1/30/23         0       MH
 ## 2       2    SARU      1   1    Fresh 1/30/23         0       MH
@@ -323,7 +330,7 @@ Figure 1.1: Figure 1. Database Structure
 ## 3         SJ DISP_Fresh_C1R1
 ## 4         SJ ALOC_Fresh_C1R1
 ## 5         SJ    PHAU_40_C1R2</code></pre>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM EC_Final LIMIT 5;&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="database-structure.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM EC_Final LIMIT 5;&quot;</span>)</span></code></pre></div>
 <pre><code>##     Sample Start_Time Soil_Weight_g Water_Rate_mL Time_of_Measurement
 ## 1 C2-R3-DT 1:57:00 PM        10.304         51.52          1:59:00 PM
 ## 2 C1-R4-ST 2:18:00 PM         7.778         38.90          2:45:00 PM
@@ -350,7 +357,7 @@ Figure 1.1: Figure 1. Database Structure
           </div>
         </div>
       </div>
-
+<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -405,6 +412,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>
