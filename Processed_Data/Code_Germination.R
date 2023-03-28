@@ -85,6 +85,11 @@ temp <- Germ %>% dplyr::filter(Species == "DISP")
 head(temp)
 sum(temp$Emergence) #3 germination total
 
+Germ[Germ$Salinity == "40" & Germ$Species == "SARU" & Germ$Emergence != "0", ]
+# Emergence at 40 was a miscount for SARU, adjust these vals
+Germ$Emergence[Germ$Species == "SARU" & Germ$Salinity == "40" & 
+                       Germ$Emergence != "0"] <- 0
+
 
 #480 in Germ minus 120 temp = 360 after removing DISP
 #vector of species to keep 
