@@ -8,6 +8,7 @@ list.files()
 load("Germ_mean.Rdata")
 head(Germ_mean)
 
+#filter the 40
 
 
 library(ggplot2)
