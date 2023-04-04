@@ -117,6 +117,7 @@ G_Mod1.resid <- simulateResiduals(G_Mod1, plot=T)
   
     emmip(G_Mod1, Salinity ~ Species, CIs = F) # You can toggle CI's on and off
   
+    
     # Check for significance of fixed effects
     car::Anova(G_Mod1) #significant interaction Species:Salinity
     
@@ -226,6 +227,8 @@ setwd("~/Experiments_R/Sandra_GH_2023/Processed_Data")
 save(G_Mod2, file = "Model_object.RData")
 save(Germ1, file = "DF_Germination-Fresh-25-Only.RData")
 list.files()
+
+
 
 # From here, we will further investigate our selected model ... 
 # Move to the Model_Custom-Contrasts R Script

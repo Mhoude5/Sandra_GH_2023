@@ -87,6 +87,8 @@ levels(Germ$Salinity)
 #with all 3 salinity levels (here, color = Salinity, facet_wrap by Species)
 
 
+
+
 setwd("~/Experiments_R/Sandra_GH_2023/Output")
 ggsave(filename = "Test_Graph.png", 
        device = "png", # tiff or pdf for saving publication-quality figures
@@ -104,4 +106,9 @@ setwd("~/Experiments_R/Sandra_GH_2023/Processed_Data")
 Germ_mean <- Germ
 
 save(Germ_mean, file="Germ_mean.Rdata")
+
+
+
+
+
 
