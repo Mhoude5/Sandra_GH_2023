@@ -2,6 +2,7 @@
 .docs/
 .Rhistory
 *.png
+!database.png
 /Output/
 /Raw_Data/
 .Rproj/
