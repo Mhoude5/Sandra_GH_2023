@@ -1,5 +1,5 @@
 getwd()
-setwd(C:/Users/Sandra/Documents/Experiments_R/Sandra_GH_2023)
+setwd("C:/Users/Sandra/Documents/Experiments_R/Sandra_GH_2023/Processed_Data")
 
 list.files()
 load("DF_Germination-Fresh-25-Only.RData")
