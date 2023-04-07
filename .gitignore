@@ -2,7 +2,7 @@
 .docs/
 .Rhistory
 *.png
-!database.png
+!docs/*.png
 /Output/
 /Raw_Data/
 .Rproj/
