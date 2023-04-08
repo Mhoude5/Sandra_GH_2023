@@ -35,9 +35,9 @@ EC <- EC %>%
   dplyr::select(Species, Target_Salinity, Position,
                 EC_microS_cm, ECe_dS_m, PSU_e) %>% 
   na.omit() %>% 
-  dplyr::group_by(Species, Target_Salinity, Position) %>% 
-  dplyr::summarize(SE = std.error(EC_microS_cm),
-                   EC_microS_cm = mean(EC_microS_cm))
+  dplyr::group_by(Species, Position, Target_Salinity) %>% 
+  dplyr::mutate(sd = std.error(EC_microS_cm),
+                EC_microS_cm = mean(EC_microS_cm))
   
 
 # The EC Usual tables have not had the conversion values applied
@@ -54,28 +54,32 @@ EC_usual <- EC_usual %>%
                 EC_microS_cm = dS.m * 1000) %>% 
   dplyr::select(Species, Target_Salinity, Position, EC_microS_cm) %>% 
   dplyr::group_by(Species, Target_Salinity, Position) %>% 
-  dplyr::summarize(SE = std.error(EC_microS_cm),
-                   EC_microS_cm = mean(EC_microS_cm))
+  dplyr::mutate(sd = std.error(EC_microS_cm),
+                EC_microS_cm = mean(EC_microS_cm))
 
 
 # Graph EC first ----
-EC_g <- ggplot(EC,
-       aes(x = Position,
-           y = EC_microS_cm,
-           color = Position)) +
+EC <- EC %>%
+  dplyr::filter(Species != "DISP") 
+
+EC_g <- ggplot(EC, 
+               aes(x = Position, 
+                   y = EC_microS_cm,
+                   color = Species)) +
   ylim(0, 70000) +
   geom_point(size = 3)  +
-  geom_linerange(ymin = EC$EC_microS_cm - EC$SE,
-                 ymax = EC$EC_microS_cm + EC$SE) +
+  geom_linerange(ymin =  EC$EC_microS_cm - EC$sd,
+                 ymax = EC$EC_microS_cm + EC$sd) +
   labs(title = "In-house Salinity",
        y = "EC microS/cm") +
   facet_wrap( ~Target_Salinity)
+EC_g
 
 # Graph EC_usual second ----
 EC_usg <- ggplot(EC_usual,
        aes(x = Position,
            y = EC_microS_cm,
-           color = Position)) +
+           color = Species)) +
   ylim(0, 70000) +
   labs(title = "USUAL Salinity",
        y = "EC microS/cm") +
@@ -86,6 +90,75 @@ EC_usg <- ggplot(EC_usual,
 gridExtra::grid.arrange(EC_g, EC_usg)
 
 
-# We need to wait to get samples from USUAL and for Sandra to finish measuring
-# to do a 1:1 comparison of their data to ours.
-# Here, our in-house salinity is averaged so we would expect some differences.
+# I think I want EC_usual appended onto EC, species name should be modified first
+# to say SPP_Usual
+# Then I can plot singular species, faceted by salinity, with both measurements 
+# on it
+
+EC_usual <- EC_usual %>% 
+  dplyr::mutate(Species = dplyr::case_when(
+    Species == "ALOC" ~ "ALOC_USUAL",
+    Species == "PHAU" ~ "PHAU_USUAL",
+    Species == "SARU" ~ "SARU_USUAL" 
+  ))
+
+EC_comb <- EC %>% 
+  rbind(EC_usual)
+
+# ALOC graph USUAL & in-house ----
+ALOC <- EC_comb %>% 
+  dplyr::filter(Species %in% c("ALOC", "ALOC_USUAL"))
+
+a <- ggplot(ALOC,
+       aes(x = Position,
+           y = EC_microS_cm,
+           color = Species)) +
+  ylim(0, 70000) +
+  labs(title = "ALOC Salinity",
+       y = "EC microS/cm") +
+  geom_linerange(ymin =  ALOC$EC_microS_cm - ALOC$sd,
+                 ymax = ALOC$EC_microS_cm + ALOC$sd) +
+  geom_point(size = 3)  +
+  facet_wrap( ~Target_Salinity)
+
+# SARU graph USUAL & in-house ----
+SARU <- EC_comb %>% 
+  dplyr::filter(Species %in% c("SARU", "SARU_USUAL"))
+
+s <- ggplot(SARU,
+       aes(x = Position,
+           y = EC_microS_cm,
+           color = Species)) +
+  ylim(0, 70000) +
+  labs(title = "SARU Salinity",
+       y = "EC microS/cm") +
+  geom_linerange(ymin =  SARU$EC_microS_cm - SARU$sd,
+                 ymax = SARU$EC_microS_cm + SARU$sd) +
+  geom_point(size = 3)  +
+  facet_wrap( ~Target_Salinity)
+
+# PHAU graph USUAL & in-house ----
+PHAU <- EC_comb %>% 
+  dplyr::filter(Species %in% c("PHAU", "PHAU_USUAL"))
+
+p <- ggplot(PHAU,
+       aes(x = Position,
+           y = EC_microS_cm,
+           color = Species)) +
+  ylim(0, 70000) +
+  labs(title = "PHAU Salinity",
+       y = "EC microS/cm") +
+  geom_linerange(ymin =  PHAU$EC_microS_cm - PHAU$sd,
+                 ymax = PHAU$EC_microS_cm + PHAU$sd) +
+  geom_point(size = 3)  +
+  facet_wrap( ~Target_Salinity)
+
+# Combine ALOC, PHAU, SARU plots ----
+
+gridExtra::grid.arrange(a, p, s)
+
+# a little hard to see (squashed)
+# view alone
+a
+p
+s
