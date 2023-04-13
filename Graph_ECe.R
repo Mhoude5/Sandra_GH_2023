@@ -36,8 +36,10 @@ EC <- EC %>%
                 EC_microS_cm, ECe_dS_m, PSU_e) %>% 
   na.omit() %>% 
   dplyr::group_by(Species, Position, Target_Salinity) %>% 
-  dplyr::mutate(sd = std.error(EC_microS_cm),
-                EC_microS_cm = mean(EC_microS_cm))
+  dplyr::mutate(sd_EC = std.error(EC_microS_cm),
+                EC_microS_cm = mean(EC_microS_cm),
+                sd_ECe = std.error(ECe_dS_m),
+                ECe_dS_m = mean(ECe_dS_m))
   
 
 # The EC Usual tables have not had the conversion values applied
@@ -51,11 +53,11 @@ EC_usual <- EC_usual %>%
                 Position = dplyr::case_when(
                   endsWith(X.1, "Top") ~ "Top",
                   endsWith(X.1, "Bottom") ~ "Bottom"),
-                EC_microS_cm = dS.m * 1000) %>% 
-  dplyr::select(Species, Target_Salinity, Position, EC_microS_cm) %>% 
-  dplyr::group_by(Species, Target_Salinity, Position) %>% 
-  dplyr::mutate(sd = std.error(EC_microS_cm),
-                EC_microS_cm = mean(EC_microS_cm))
+                EC_microS_cm = dS.m * 1000,
+                ECe_dS_m = EC_microS_cm * (mg.L / 35) / 1000) %>% 
+  dplyr::select(Species, Target_Salinity, Position, 
+                EC_microS_cm, ECe_dS_m) 
+  
 
 
 # Graph EC first ----
@@ -68,8 +70,8 @@ EC_g <- ggplot(EC,
                    color = Species)) +
   ylim(0, 70000) +
   geom_point(size = 3)  +
-  geom_linerange(ymin =  EC$EC_microS_cm - EC$sd,
-                 ymax = EC$EC_microS_cm + EC$sd) +
+  geom_linerange(ymin =  EC$EC_microS_cm - EC$sd_EC,
+                 ymax = EC$EC_microS_cm + EC$sd_EC) +
   labs(title = "In-house Salinity",
        y = "EC microS/cm") +
   facet_wrap( ~Target_Salinity)
@@ -105,7 +107,8 @@ EC_usual <- EC_usual %>%
 EC_comb <- EC %>% 
   rbind(EC_usual)
 
-# ALOC graph USUAL & in-house ----
+# Graph EC ----
+## ALOC graph USUAL & in-house EC ----
 ALOC <- EC_comb %>% 
   dplyr::filter(Species %in% c("ALOC", "ALOC_USUAL"))
 
@@ -116,12 +119,12 @@ a <- ggplot(ALOC,
   ylim(0, 70000) +
   labs(title = "ALOC Salinity",
        y = "EC microS/cm") +
-  geom_linerange(ymin =  ALOC$EC_microS_cm - ALOC$sd,
-                 ymax = ALOC$EC_microS_cm + ALOC$sd) +
+  geom_linerange(ymin =  ALOC$EC_microS_cm - ALOC$sd_EC,
+                 ymax = ALOC$EC_microS_cm + ALOC$sd_EC) +
   geom_point(size = 3)  +
   facet_wrap( ~Target_Salinity)
 
-# SARU graph USUAL & in-house ----
+## SARU graph USUAL & in-house ----
 SARU <- EC_comb %>% 
   dplyr::filter(Species %in% c("SARU", "SARU_USUAL"))
 
@@ -132,12 +135,12 @@ s <- ggplot(SARU,
   ylim(0, 70000) +
   labs(title = "SARU Salinity",
        y = "EC microS/cm") +
-  geom_linerange(ymin =  SARU$EC_microS_cm - SARU$sd,
-                 ymax = SARU$EC_microS_cm + SARU$sd) +
+  geom_linerange(ymin =  SARU$EC_microS_cm - SARU$sd_EC,
+                 ymax = SARU$EC_microS_cm + SARU$sd_EC) +
   geom_point(size = 3)  +
   facet_wrap( ~Target_Salinity)
 
-# PHAU graph USUAL & in-house ----
+## PHAU graph USUAL & in-house ----
 PHAU <- EC_comb %>% 
   dplyr::filter(Species %in% c("PHAU", "PHAU_USUAL"))
 
@@ -148,8 +151,8 @@ p <- ggplot(PHAU,
   ylim(0, 70000) +
   labs(title = "PHAU Salinity",
        y = "EC microS/cm") +
-  geom_linerange(ymin =  PHAU$EC_microS_cm - PHAU$sd,
-                 ymax = PHAU$EC_microS_cm + PHAU$sd) +
+  geom_linerange(ymin =  PHAU$EC_microS_cm - PHAU$sd_EC,
+                 ymax = PHAU$EC_microS_cm + PHAU$sd_EC) +
   geom_point(size = 3)  +
   facet_wrap( ~Target_Salinity)
 
@@ -162,3 +165,45 @@ gridExtra::grid.arrange(a, p, s)
 a
 p
 s
+
+
+# Graph ECe vals ----
+## ALOC graph USUAL & in-house ECe ----
+  ggplot(ALOC,
+            aes(x = Position,
+                y = ECe_dS_m,
+                color = Species)) +
+  labs(title = "ALOC Salinity",
+       y = "EC microS/cm") +
+  ylim(0, 80) +
+  geom_linerange(ymin =  ALOC$ECe_dS_m - ALOC$sd_ECe,
+                 ymax = ALOC$ECe_dS_m + ALOC$sd_ECe) +
+  geom_point(size = 3)  +
+  facet_wrap( ~Target_Salinity)
+
+# SARU graph USUAL & in-house ----
+  ggplot(SARU,
+            aes(x = Position,
+                y = ECe_dS_m,
+                color = Species)) +
+  labs(title = "SARU Salinity",
+       y = "EC microS/cm") +
+  ylim(0, 80) +
+  geom_linerange(ymin =  SARU$ECe_dS_m - SARU$sd_ECe,
+                 ymax = SARU$ECe_dS_m + SARU$sd_ECe) +
+  geom_point(size = 3)  +
+  facet_wrap( ~Target_Salinity)
+
+# PHAU graph USUAL & in-house ----
+  ggplot(PHAU,
+            aes(x = Position,
+                y = ECe_dS_m,
+                color = Species)) +
+  labs(title = "PHAU Salinity",
+       y = "EC microS/cm") +
+  ylim(0, 80) +
+  geom_linerange(ymin =  PHAU$ECe_dS_m - PHAU$sd_ECe,
+                 ymax = PHAU$ECe_dS_m + PHAU$sd_ECe) +
+  geom_point(size = 3)  +
+  facet_wrap( ~Target_Salinity)
+

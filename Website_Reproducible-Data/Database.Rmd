@@ -6,7 +6,7 @@
 In this section, I will describe the relational data structure used in Sandra's 2023 Greenhouse experiment. I will then create a SQL database to establish these .csv connections. To begin - here is a photo showing the 3 main .csv files used in this research project and the ways in which they connect.
 
 ```{r image, fig.cap="Figure 1. Database Structure", fig.align='center', out.width='100%', echo=FALSE}
-knitr::include_graphics("../docs/database.png")
+knitr::include_graphics("database.png")
 ```
 Sample_Location describes the Species, Treatment, and Location of the 48 samples in this research project.
 
