@@ -4,15 +4,14 @@
 # and then add a secondary line with the salinity measurements
 # that USUAL took for comparison.
 
-library(magrittr) # for piping
-library(ggplot2)
-
-setwd("./Raw_Data")
+library(tidyverse) #for graphing etc
+getwd()
+setwd("../Raw_Data")
 list.files()
 EC <- read.csv("EC_Final.csv", header = T)
 EC_usual <- read.csv("USUAL_EC.csv", header = T, skip = 13)
 
-# EC datasheet
+# EC datasheet wrangling ----
 # We have strings within 'Sample' we can separate to facilitate grouping
 # DT = DISP TOP; DB = DISP BOTTOM
 # AT = ALOC TOP; AB = ALOC BOTTOM
@@ -32,7 +31,7 @@ EC <- EC %>%
                     endsWith(Sample, "T") ~ "Top",
                     endsWith(Sample, "B") ~ "Bottom"
                   )) %>% 
-  dplyr::select(Species, Target_Salinity, Position,
+  dplyr::select(Species_Tmt_Pos, Species, Target_Salinity, Position,
                 EC_microS_cm, ECe_dS_m, PSU_e) %>% 
   na.omit() %>% 
   dplyr::group_by(Species, Position, Target_Salinity) %>% 
@@ -42,22 +41,103 @@ EC <- EC %>%
                 ECe_dS_m = mean(ECe_dS_m))
   
 
-# The EC Usual tables have not had the conversion values applied
-# So we can only compare EC values for now (not ECe)
+# The EC_USUAL wrangling ----
 EC_usual <- EC_usual %>% 
-  dplyr::mutate(Species = stringr::word(X.1, 2),
+  dplyr::mutate(Species = stringr::word(Identification, 2),
                 Target_Salinity = dplyr::case_when(
-                  startsWith(X.1, "0") ~ "0",
-                  startsWith(X.1, "25") ~ "25",
-                  startsWith(X.1, "40") ~ "40"),
+                  startsWith(Identification, "0") ~ "0",
+                  startsWith(Identification, "25") ~ "25",
+                  startsWith(Identification, "40") ~ "40"),
                 Position = dplyr::case_when(
-                  endsWith(X.1, "Top") ~ "Top",
-                  endsWith(X.1, "Bottom") ~ "Bottom"),
+                  endsWith(Identification, "Top") ~ "Top",
+                  endsWith(Identification, "Bottom") ~ "Bottom"),
                 EC_microS_cm = dS.m * 1000,
-                ECe_dS_m = EC_microS_cm * (mg.L / 35) / 1000) %>% 
-  dplyr::select(Species, Target_Salinity, Position, 
-                EC_microS_cm, ECe_dS_m) 
+                ECe_dS_m_USUAL = EC_microS_cm * (Water_Volume / 35) / 1000) %>% 
+  dplyr::select(Species_Tmt_Pos, Species, Target_Salinity, Position, 
+                EC_microS_cm, ECe_dS_m_USUAL) 
   
+# Combine dataframes ----
+
+comparison <- EC_usual %>% 
+  left_join(EC, by = c("Species_Tmt_Pos", "Target_Salinity", "Species",
+                       "Position")) %>% 
+  pivot_longer(cols = c("ECe_dS_m", "ECe_dS_m_USUAL"),
+               names_to = "Lab",
+               values_to = "ECe") %>% 
+  select(Species, Target_Salinity, Position, ECe, Lab) %>% 
+  na.omit() %>% 
+  as.data.frame() %>% 
+  mutate(Lab = case_when(Lab == "ECe_dS_m" ~ "In-House",
+                         Lab == "ECe_dS_m_USUAL" ~ "USU Analytical Lab")) %>% 
+  unite("Temp", Species:Position, remove= F) %>% 
+  distinct()
+
+## Drop any that dont have a value for In-House AND USUAL
+
+# remove if sum of spp occurrences is less than 2
+# tabulate the id variable
+tab <- table(comparison$Temp) # Should only have vals of 1 or 2 here
+
+# Get the names of the ids that we care about.
+# In this case the ids that occur >1 (2) times
+idx <- names(tab)[tab > 1]
+idx
+# Save only the data that we care about
+comparison <- comparison[comparison$Temp %in% idx,] #30 to 24
+
+comparison$Temp <- as.factor(comparison$Temp)
+levels(comparison$Temp)
+
+# Graph ECe comparisons ----
+
+## SARU ----
+S <-  comparison %>% 
+  filter(Species == "SARU") %>% 
+  ggplot(aes(x = Position,
+             y = ECe,
+             color = Lab)) +
+  facet_wrap( ~Target_Salinity) +
+  geom_point(size = 3) +
+  labs(x = "Species",
+       title = "SARU \nSalinity analysis by Soil Depth",
+       color = "Location of Analysis") +
+  theme_bw()
+S
+
+##PHAU ----
+P <-  comparison %>% 
+  filter(Species == "PHAU") %>% 
+  ggplot(aes(x = Position,
+             y = ECe,
+             color = Lab)) +
+  facet_wrap( ~Target_Salinity) +
+  geom_point(size = 3) +
+  labs(x = "Species",
+       title = "PHAU \nSalinity analysis by Soil Depth",
+       color = "Location of Analysis") +
+  theme_bw()
+P
+
+##ALOC
+A <-  comparison %>% 
+  filter(Species == "ALOC") %>% 
+  ggplot(aes(x = Position,
+             y = ECe,
+             color = Lab)) +
+  facet_wrap( ~Target_Salinity) +
+  geom_point(size = 3) +
+  labs(x = "Species",
+       title = "ALOC \nSalinity analysis by Soil Depth",
+       color = "Location of Analysis") +
+  theme_bw()
+A
+## View together ----
+A
+P
+S
+
+
+
 
 
 # Graph EC first ----
