@@ -24,10 +24,12 @@ load("DF_Germination-Fresh-25-Only.RData") # Load dataframe here
 # Customized contrasts (the lengthy way)----
 
 summary(G_Mod2)
+
 emmeans(G_Mod2, pairwise ~ Salinity | Species)$contrasts 
 #these contrasts are what we will create
 
-emm <- emmeans(G_Mod2, ~ Species*Salinity)
+
+emm <- emmeans(G_Mod2, ~ Species*Salinity, type = "response")
 emm
 
 # Estimate means for specific treatment combinations
@@ -58,6 +60,7 @@ custom2 <- list(`ALOC_Fresh - ALOC_25` = c(1, 0, 0, -1,  0, 0),
                 `SARU_Fresh - SARU_25`  = c(0, 0, 1,  0, 0, -1))
 contrast(emm, custom2)
 emmeans(G_Mod2, pairwise ~ Salinity | Species)$contrasts
+
 
 # Now estimate interaction of Species (ALOC & PHAU & SARU) and Salinity (Fresh & 25)
 #   Again, subtracting coefficients
