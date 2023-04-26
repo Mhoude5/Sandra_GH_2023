@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Salinity and Germination for 3 native species and invasive Phragmites australis</title>
+  <title>Chapter 5 Drawing further inference | Salinity and Germination for 3 native species and invasive Phragmites australis</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Salinity and Germination for 3 native species and invasive Phragmites australis" />
+  <meta property="og:title" content="Chapter 5 Drawing further inference | Salinity and Germination for 3 native species and invasive Phragmites australis" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
@@ -19,7 +19,7 @@ set in the _output.yml file.</p>" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Salinity and Germination for 3 native species and invasive Phragmites australis" />
+  <meta name="twitter:title" content="Chapter 5 Drawing further inference | Salinity and Germination for 3 native species and invasive Phragmites australis" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
@@ -36,8 +36,8 @@ set in the _output.yml file.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="analyze-data.html"/>
 
-<link rel="next" href="database-structure.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -201,25 +201,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Salinity and Germination for 3 native species and invasive Phragmites australis</h1>
-<p class="author"><em>Maddie Houde</em></p>
-<p class="date"><em>2023-04-26</em></p>
+<div id="drawing-further-inference" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Drawing further inference<a href="drawing-further-inference.html#drawing-further-inference" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We now have a model that shows a significant interaction between salinity
+treatments and species. We will proceed with custom contrast statements to
+pinpoint what treatments, and what species differed significantly from each other.</p>
+<p>Let’s load any required packages and our data.</p>
+<p>We want to specify contrasts between the REDUCTION in germination between the
+freshwater and the 25 ppt salinity treatment. To do that, we need to subtract
+the model estimate of total germination of the 25 ppt salinity level from the
+freshwater salinity level.</p>
+<p>We can do this using the emmeans object output.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="drawing-further-inference.html#cb140-1" aria-hidden="true" tabindex="-1"></a>emm1 <span class="ot">&lt;-</span> <span class="fu">emmeans</span>(G_Mod2, <span class="sc">~</span> Salinity <span class="sc">|</span> Species) </span>
+<span id="cb140-2"><a href="drawing-further-inference.html#cb140-2" aria-hidden="true" tabindex="-1"></a>con1 <span class="ot">&lt;-</span> <span class="fu">contrast</span>(emm1, <span class="at">interaction =</span> <span class="st">&quot;pairwise&quot;</span>)</span></code></pre></div>
+<p>The emm1 object here grabs the model estimates from our two salinity levels; the
+con1 object then subtracts the two estimates from each other within species for
+the two salinities (and runs a pairwise test). Our research question is: Are there
+different rates of reduction BETWEEN species at different salinity levels?
+We can use a pairwise comparison to answer this question.</p>
+<div id="pairwise-comparison" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Pairwise comparison<a href="drawing-further-inference.html#pairwise-comparison" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="drawing-further-inference.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pairs</span>(con1, <span class="at">by =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<pre><code>##  contrast                              estimate    SE  df z.ratio p.value
+##  (Fresh - 25 ALOC) - (Fresh - 25 PHAU)    -3.54 0.775 Inf  -4.574  &lt;.0001
+##  (Fresh - 25 ALOC) - (Fresh - 25 SARU)    -2.35 1.379 Inf  -1.702  0.2043
+##  (Fresh - 25 PHAU) - (Fresh - 25 SARU)     1.19 1.573 Inf   0.760  0.7278
+## 
+## Results are given on the log (not the response) scale. 
+## P value adjustment: tukey method for comparing a family of 3 estimates</code></pre>
 </div>
-<div id="overview" class="section level1 unnumbered hasAnchor">
-<h1>Overview<a href="index.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This bookdown shares Sandra Johnston’s undergraduate research experiment results.
-We walk through the directory structure, share visuals of raw data, and analyze
-the results of imposing higher salinities on species germination.</p>
+<div id="conclusions" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Conclusions<a href="drawing-further-inference.html#conclusions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Increasing salinity reduced germination for our three species, and this reduction varied
+between species. Specifically, Allenrolfea occidentalis (ALOC) showed a lesser reduction
+in germination at a higher salinity level than Phragmites australis. This research
+shows promise for species selection when restoring invaded sites from seed. Often,
+invasive species like Phragmites grow back from seed due to the high density of
+remaining seeds in the seed bank; this research shows that Allenrolfea can compete
+with Phragmites germination at freshwater, and outpace Phragmites germination at a
+more saline condition.</p>
+<p>Other species, such as Salicornia rubra, experienced low germination regardless of
+salinity. This shoud not write off using Salicornia in future restoration experiments,
+but rather it leads to more questions about different dormancy breaking methods or ways
+to help native playa species establish in a restoration context.</p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="analyze-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="database-structure.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -250,7 +284,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/index.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/5_Custom-Contrasts.Rmd",
 "text": "Edit"
 },
 "history": {

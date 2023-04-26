@@ -1,0 +1,56 @@
+# Drawing further inference
+We now have a model that shows a significant interaction between salinity 
+treatments and species. We will proceed with custom contrast statements to 
+pinpoint what treatments, and what species differed significantly from each other.
+
+Let's load any required packages and our data.
+```{r load packages, echo=F}
+library(emmeans)
+library(glmmTMB)
+library(car)
+library(DHARMa)
+library(blme)
+
+
+setwd("../Processed_Data")
+load("Model_object.RData") # Load model object here
+load("DF_Germination-Fresh-25-Only.RData") # Load dataframe here
+```
+
+We want to specify contrasts between the REDUCTION in germination between the
+freshwater and the 25 ppt salinity treatment. To do that, we need to subtract
+the model estimate of total germination of the 25 ppt salinity level from the 
+freshwater salinity level. 
+
+We can do this using the emmeans object output.
+
+```{r emm grid}
+emm1 <- emmeans(G_Mod2, ~ Salinity | Species) 
+con1 <- contrast(emm1, interaction = "pairwise")
+```
+
+The emm1 object here grabs the model estimates from our two salinity levels; the
+con1 object then subtracts the two estimates from each other within species for 
+the two salinities (and runs a pairwise test). Our research question is: Are there
+different rates of reduction BETWEEN species at different salinity levels?
+We can use a pairwise comparison to answer this question.
+
+## Pairwise comparison
+
+```{r pairwise}
+pairs(con1, by = NULL)
+```
+## Conclusions
+Increasing salinity reduced germination for our three species, and this reduction varied
+between species. Specifically, Allenrolfea occidentalis (ALOC) showed a lesser reduction
+in germination at a higher salinity level than Phragmites australis. This research
+shows promise for species selection when restoring invaded sites from seed. Often,
+invasive species like Phragmites grow back from seed due to the high density of 
+remaining seeds in the seed bank; this research shows that Allenrolfea can compete
+with Phragmites germination at freshwater, and outpace Phragmites germination at a 
+more saline condition. 
+
+Other species, such as Salicornia rubra, experienced low germination regardless of
+salinity. This shoud not write off using Salicornia in future restoration experiments,
+but rather it leads to more questions about different dormancy breaking methods or ways
+to help native playa species establish in a restoration context.

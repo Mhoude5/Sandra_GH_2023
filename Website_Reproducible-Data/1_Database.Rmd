@@ -62,6 +62,7 @@ FOREIGN KEY (Species_Tmt_Pos) REFERENCES Sample_Location(Species_Tmt_Pos)
 Last, we will build the EC_Final table.
 ```{r EC_Final}
 dbExecute(Sandra_db, "CREATE TABLE EC_Final(
+auto_id integer PRIMARY KEY AUTOINCREMENT,
 Sample varchar(8) NOT NULL,
 Start_Time varchar(12) NOT NULL,
 Soil_Weight_g double(10) NOT NULL,
@@ -74,10 +75,9 @@ ECe_microS_cm double(15) NOT NULL,
 ECe_dS_m double(4) NOT NULL,
 PSU_e double(4) NOT NULL,
 Target_Salinity varchar(5) NOT NULL,
-remeasure varchar(75),
+premeasure varchar(75),
 Species_Tmt_Pos varchar(15) NOT NULL,
-FOREIGN KEY (Species_Tmt_Pos) REFERENCES Sample_Location(Species_Tmt_Pos),
-PRIMARY KEY (Sample)
+FOREIGN KEY (Species_Tmt_Pos) REFERENCES Sample_Location(Species_Tmt_Pos)
 );")
 ```
 

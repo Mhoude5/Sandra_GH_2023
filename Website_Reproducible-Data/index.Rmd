@@ -1,6 +1,6 @@
 --- 
-title: "A Minimal Book Example"
-author: "John Doe"
+title: "Salinity and Germination for 3 native species and invasive Phragmites australis"
+author: "Maddie Houde"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -17,4 +17,6 @@ github-repo: rstudio/bookdown-demo
 
 # Overview {-}
 
-This is my website
+This bookdown shares Sandra Johnston's undergraduate research experiment results.
+We walk through the directory structure, share visuals of raw data, and analyze
+the results of imposing higher salinities on species germination. 

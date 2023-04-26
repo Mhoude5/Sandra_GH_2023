@@ -1,0 +1,101 @@
+# Creating Visuals with our dataset
+In this chapter, I will create a few graphs showing raw data results 
+from the experiment.
+
+## Load our previously cleaned dataset
+
+```{r load processed data}
+getwd()
+setwd("../Processed_Data")
+list.files()
+load("DF_Germination.RData")
+```
+
+We also want to load any required packages. We could call these individually,
+or we could simply load tidyverse
+```{r load tidy}
+library(tidyverse)
+```
+
+## Prepare dataset to create a graph showing cumulative germination counts
+```{r view dataframe}
+head(Germ)
+```
+Here, we can see that we have emergence counts for each species and salinity level,
+but these are not cumulative counts. We need to do several things. 1) create a 
+cumulative emergence column 2) average across the species and salinity interaction, 
+and 3) create a standard error of these values.
+
+```{r cumsum}
+# Create a standard error function
+std.error <- function(x) sd(x)/sqrt(length(x))
+
+Germ <- Germ %>% 
+  group_by(Species_Tmt_Pos) %>% 
+  mutate(Total_Germination = cumsum(Emergence)) %>% 
+  ungroup() %>% 
+  mutate(Salinity = factor(Salinity, levels = c("Fresh", "25", "40"))) %>% 
+  group_by(Species, Salinity, Day) %>% 
+  summarize(SE = std.error(Total_Germination),
+                   Total_Germination = mean(Total_Germination)) %>% 
+  ungroup() %>% 
+  as_tibble()
+```
+
+## Cumulative Germination Graph
+```{r cumemerg graph}
+vec <- c("darkblue", "blue", "lightblue")
+
+ggplot(Germ, 
+       aes(x = Day, y = Total_Germination, color = Species)) +
+  geom_point(size = 4) +
+  geom_line() +
+  geom_linerange(ymin = Germ$Total_Germination - Germ$SE,
+                 ymax = Germ$Total_Germination + Germ$SE) +
+  labs(title = "Cumulative Germination",
+       x = "Monitoring Day",
+       y = "Mean Cumulative Germination ± SE") +
+  theme(axis.title = element_text(size = 18),
+        plot.title = element_text(size = 22, hjust = 0.5),
+        legend.text = element_text(size = 16),
+        legend.title = element_text(size = 18),
+        ) +
+  scale_color_manual(values = vec) +
+  ylim(0, 100) + # Set 100 upper limit since that is what we seeded
+  facet_wrap(~ Salinity) +
+  theme_bw() 
+
+```
+Above we created a graph that was faceted by salinity. Now, we would like to facet
+by species to view species-specific tolerances to salinity.
+
+## Cumulative Germination Graph
+```{r species facet}
+
+vec <- c("blue", "yellow", "red")
+
+ggplot(Germ, 
+       aes(x = Day, y = Total_Germination, color = Salinity)) +
+  geom_point(size = 4) +
+  geom_line() +
+  geom_linerange(ymin = Germ$Total_Germination - Germ$SE,
+                 ymax = Germ$Total_Germination + Germ$SE) +
+  labs(title = "Cumulative Germination",
+       x = "Monitoring Day",
+       y = "Mean Cumulative Germination ± SE") +
+  theme(axis.title = element_text(size = 18),
+        plot.title = element_text(size = 22, hjust = 0.5),
+        legend.text = element_text(size = 16),
+        legend.title = element_text(size = 18),
+        ) +
+  scale_color_manual(values = vec) +
+  ylim(0, 100) + # Set 100 upper limit since that is what we seeded
+  facet_wrap(~ Species) +
+  theme_bw() 
+
+```
+
+
+
+  
+

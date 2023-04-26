@@ -1,0 +1,245 @@
+# Analyze data
+We've now seen what our raw data looks like, and we have an idea that salinity
+had a significant effect on species germination. However, we would like to show
+that effect using a generalized linear mixed model.
+
+## Load data.
+```{r load data ch4, echo = FALSE}
+setwd("../Processed_Data")
+load("DF_Germination.Rdata")
+```
+
+Load packages too.
+```{r load packages ch4}
+library(tidyverse) #gives ggplot2 and piping
+library(glmmTMB)
+library(car)
+library(DHARMa)
+library(emmeans)
+library(blme)
+```
+
+We will analyze our data using total germination counts, and will likely use a
+Poisson distribution. To do that, we need to create a new column for total counts.
+We also want to add a new column which accounts for the location (or block) in the
+greenhouse. We will call this spot the 'Whole_Plot'
+
+```{r total germ col}
+# Whole Plot
+Germ$Whole_Plot <- as.factor(paste(Germ$Column, Germ$Row))
+
+# Total Emergence
+Germ <- Germ %>%
+  dplyr::group_by(Species, Salinity, Whole_Plot) %>%
+  dplyr::summarise(Total_Emergence = sum(Emergence)) %>%
+  dplyr::ungroup()
+
+```
+## Remove 40 PPT
+If you recall, the 40 PPT had zero germination counts. We recognize that this is
+a species tolerance limit for ALL of our species in this experiment. We won't gain
+any new information by including this in our analysis, so we remove it here.
+```{r remove 40 PPT}
+Germ <- Germ %>%
+  filter(Salinity %in% c("Fresh", "25")) %>% 
+  mutate(Salinity = factor(Salinity, levels = c("Fresh", "25")))
+```
+We can check that we successfully removed 40 as a salinity factor.
+```{r check factor 40}
+levels(Germ$Salinity)
+```
+
+## Poisson model
+The first stab at model creation.
+```{r first mod}
+G_Mod <- glmmTMB(Total_Emergence ~ Species + Salinity + Species:Salinity
+            +  (1 | Whole_Plot), 
+            family = poisson, # count data
+            data = Germ)
+```
+
+## Poisson model diagnostic plots
+Let's see how this model fits by looking at residual plots and DHARMa diagnostics.
+```{r DHARMa diagnostics basic, echo=FALSE}
+G_Mod.resid <- simulateResiduals(G_Mod, plot=T)
+plotResiduals(G_Mod.resid, form = Germ$Salinity)
+```
+
+Our model fit could be improved. The second plot shows us that our mean very likely
+does not equal our variance (as is assumed by a Poisson distribution). To address this,
+we can swap to a negative binomial distribution and see if the diagnostics improve.
+
+## Negative binomial model
+```{r neg binom model}
+G_Mod <- glmmTMB(Total_Emergence ~ Species + Salinity + Species:Salinity
+                  +  (1 | Whole_Plot),
+                  family = nbinom1(), # quasi poisson
+                  data = Germ)
+```
+Note that our model statement is exactly the same, with the exception of the 
+family call. Let's look at those diagnostic plots.
+
+```{r diagnostic plots nbinom, echo = FALSE}
+G_Mod.resid <- simulateResiduals(G_Mod, plot=T)
+```
+
+This looks better! Now I will explore the model further.
+
+```{r explore nbinom model, echo = FALSE}
+plotResiduals(G_Mod.resid, form = Germ$Salinity)
+```
+
+The spread of residuals is improved here. We can also look at the salinity effect
+on our model estimates.
+
+```{r other nbinom, echo = FALSE}
+emmip(G_Mod, Species ~ Salinity, CIs = F)
+
+```
+The Salicornia rubra here has a highly negative prediction from Fresh to 25.
+This poses an issue when interpreting our data. It likely resulted from having 
+zero germination at the 25 PPT salinity for SARU (as seen below).
+
+```{r SARU zero, echo = FALSE}
+Germ %>% 
+  filter(Salinity == "25" & Species == "SARU")
+```
+
+We had 4 replicates, and you can see that each replicate had zero seeds emerge.
+Poisson and negative binomial distributions struggle with zero counts, because it 
+has (1) no variance and (2) it exists right at the edge of the distributions range 
+(0, infinity). We need to address this by adding a fixed effects prior to our
+model. Our model interpretation is meaningless as is, because the 0's can impact
+other model estimates.
+
+## Fixed effects prior
+Below we switch to using bglmer() rather than glmmTMB() because it allows us to add
+fixed effects priors. These are added to our model estimates, in the order of our
+model summary. To remind ourselves how many fixed effects we have, we can look at our
+summary.
+
+```{r summ FE, echo = FALSE}
+summary(G_Mod)
+```
+There are 6 fixed effects to account for. Also note that the estimate for SARU 
+and its interaction with 25 PPT has a really large standard error (1.183e04). 
+That number should change if we successfully adjust away from 0.
+
+```{r fixed effects model}
+G_Mod <- bglmer(Total_Emergence ~ Species * Salinity
+                  +  (1 | Whole_Plot),
+                  family = poisson(), # back to Poisson for now
+                  fixef.prior = normal(sd = c(3, 3, 3, 3, 3, 3)), 
+                  data = Germ)
+```
+Priors of 3 represent a reasonable value (2.5 is default). The larger number 
+you have the less of an effect it makes on your data. 
+
+Let's see if the standard error was adjusted.
+```{r FE summ, echo = FALSE}
+summary(G_Mod)
+```
+Now the standard error is 1.58, which is a lot more reasonable! However, we may
+not wish to penalize all of our fixed effects if SARU poses the only issue. In
+this case, we could use large numbers on effects where we want weak penalization,
+and use smaller numbers (e.g., 2.5) for our problem child. One more note that PHAU 
+(Phragmites australis) also had low germination at 25 PPT. To account for this, 
+I will penalize PHAU:25 as well.
+
+## Weaker fixed effects priors
+
+```{r weak FE}
+G_Mod <- bglmer(Total_Emergence ~ Species * Salinity
+                 +  (1 | Whole_Plot),
+                 family = poisson(),
+                 fixef.prior = normal(c(1e4, 1e4, 1e4, 1e4, 2.5, 2.5)), 
+                 data = Germ)
+summary(G_Mod)
+```
+
+We can explore this model to assess model fit.
+```{r explore model, echo = FALSE}
+G_Mod.resid <- simulateResiduals(G_Mod, plot=T)
+plotResiduals(G_Mod.resid, form = Germ$Salinity)
+```
+  This model fit could be improved. Earlier, we fixed these issues by moving to a
+nbinom() distribution. Unfortunately, that is not possible when using fixed effects
+priors. 
+
+However, let's take a step back and look at the raw data.
+```{r graphs again, echo = FALSE}
+# Create a standard error function
+std.error <- function(x) sd(x)/sqrt(length(x))
+vec <- c("darkblue", "blue", "lightblue")
+
+setwd("../Processed_Data")
+load("DF_Germination.RData")
+
+Germ %>% 
+  group_by(Species_Tmt_Pos) %>% 
+  mutate(Total_Germination = cumsum(Emergence)) %>% 
+  ungroup() %>% 
+  mutate(Salinity = factor(Salinity, levels = c("Fresh", "25", "40"))) %>% 
+  group_by(Species, Salinity, Day) %>% 
+  summarize(SE = std.error(Total_Germination),
+                   Total_Germination = mean(Total_Germination)) %>% 
+  ungroup() %>% 
+  as_tibble() %>% 
+  ggplot(aes(x = Day, y = Total_Germination, color = Species)) +
+  geom_point(size = 4) +
+  geom_line() +
+  labs(title = "Cumulative Germination",
+       x = "Monitoring Day",
+       y = "Mean Cumulative Germination") +
+  theme(axis.title = element_text(size = 18),
+        plot.title = element_text(size = 22, hjust = 0.5),
+        legend.text = element_text(size = 16),
+        legend.title = element_text(size = 18),
+        ) +
+  scale_color_manual(values = vec) +
+  ylim(0, 100) + # Set 100 upper limit since that is what we seeded
+  facet_wrap(~ Salinity) +
+  theme_bw()
+       
+```
+
+It is pretty clear from the above graph that salinity DID have an effect on species
+germination, and perhaps that we would expect differing magnitudes of reduction 
+between species as we move from fresh to 25 ppt salinity. 
+
+We shouldn't have to go to crazy efforts to prove what we already know by looking 
+at our raw data. Not to mention - there is danger in applying complicated statistics
+when you cannot easily explain their purpose.
+
+With that said, we will go forward with the use of this model.
+
+Let's explore salinity effect with model estimates.
+```{r sal effect, echo = FALSE}
+emmip(G_Mod, Species ~ Salinity, CIs = T)
+```
+  These error bars are a lot more reasonable!
+
+Other exploration graphs...
+
+```{r explore mod graphs, echo = FALSE}
+emmip(G_Mod, Salinity ~ Species, CIs = T, type = "response")
+
+# Or without confidence intervals
+
+emmip(G_Mod, Salinity ~ Species, CIs = F, type = "response")
+```
+
+Check for significance of fixed effects
+```{r car anova, echo = FALSE}
+car::Anova(G_Mod)
+```
+Yup, as expected: the interaction between species and salinity is significant.
+We can use emmeans to view real-world (back transformed) model estimates of species
+germination at each salinity level.
+
+```{r emmeans, echo = FALSE}
+emmeans(G_Mod,  ~ Salinity | Species, type = "response") 
+```
+Whew! We did a lot of work here. Now that we know our interaction is significant,
+we can try to tease out which combination of effects are significant. However, that
+will have to wait for another chapter. See you soon!

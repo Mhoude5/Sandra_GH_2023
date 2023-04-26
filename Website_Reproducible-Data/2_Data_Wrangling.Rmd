@@ -1,0 +1,161 @@
+# Data Wrangling
+In this chapter, I take a raw .CSV file and use data wrangling techniques to prepare
+it for future analysis and graphing. 
+
+## Load required R packages and raw data
+
+I first need to clean up the data from the greenhouse experiment and get it into 
+a logical order. Let's begin!
+```{r Load packages}
+# Load required packages
+library(tidyverse)
+```
+
+```{r Load data}
+# Load our data
+setwd("../Raw_Data")
+Germ <- read.csv("Germination.csv", header=T)
+head(Germ)
+# Drop columns we don't need
+Germ <- Germ[ , -c(7, 8, 9)]
+```
+
+Tidyverse can be a clearer way to drop columns. For example, we could have written:
+
+- Germ <- Germ %>% 
+    select(-c(Observer:Checked_by)) 
+and gotten the same result. 
+
+## Changing column class
+We need to ensure R is reading our data how we would like. Typically, this requires
+changing the column class by specifying what format our data is in. But to do 
+that - we need to know what class our data currently is!
+
+```{r class}
+# View default class
+sapply(Germ, class)
+```
+
+We would like Species, Column, Row, Salinity, and Species_Tmt_Pos to be classed
+as factors. Additionally, we want our Date column to be classed as a date.
+
+```{r Change column class}
+# A slow way to change column class is to call each column directly, like below
+Germ$Species <- as.factor(Germ$Species)
+class(Germ$Species)
+
+# Here is a faster way to change multiple column classes
+# Create a vector containing all of our future factor column names
+factor_cols <- c("Species", "Column", "Row", "Salinity", "Species_Tmt_Pos")
+# Use baseR functions to change all of these columns in one line of code
+Germ[factor_cols]<-lapply(Germ[factor_cols], as.factor)
+```
+
+Dates are a special kind of class in R. We can use library(lubridate) to set this
+up.
+```{r dates}
+# View how our dates are written
+head(Germ, 2)
+# These are written in mm dd yy format, so we can use the lubridate function mdy()
+# to change the class
+Germ$Date <- lubridate::mdy(Germ$Date)
+```
+
+Great! We should have our classes all in the right order now!
+Let's check
+```{r check class again}
+sapply(Germ, class)
+```
+
+## Explore the data frame
+Now we take a birds eye view of our data frame and check for typos, reasonable
+values, and more.
+```{r exploring}
+# How many rows is our data frame?
+length(Germ) 
+
+# Do we have any NAs? and if so - where are they located in our dataframe?
+which(is.na(Germ))
+
+# View our min and max emergence to check for reasonable values
+# We could do this with baseR
+min(Germ$Emergence)
+max(Germ$Emergence)
+# or with Tidyverse
+Germ %>% 
+  select(Emergence) %>% 
+  max()
+
+# We can also check our factor levels to see if we have any typos, or unexpected
+# values, etc..
+levels(Germ$Species)
+levels(Germ$Salinity)
+levels(Germ$Column)
+levels(Germ$Row)
+
+# Alternatively, we can use a Lapply function to view levels of each factor column
+# at once!
+lapply(Germ, levels)
+```
+
+## Adding a column
+Our dataframe includes monitoring date, but it would be more intuitive if we had
+a column that specified experiment day rather than date. Let's add one.
+ 
+```{r add experiment day column}
+# View how many unique dates we recorded emergence
+unique(Germ$Date)
+
+# Alternatively in tidyverse...
+Germ %>% 
+  select(Date) %>% 
+  distinct()
+
+# Add a column where 01-30 is day 3 of the experiment, and then continued..
+Germ <- Germ %>%
+  mutate(Day = dplyr::case_when(
+                        Date == "2023-01-30" ~ 3,
+                        Date == "2023-02-02" ~ 6,
+                        Date == "2023-02-05" ~ 9,
+                        Date == "2023-02-08" ~ 12,
+                        Date == "2023-02-11" ~ 15,
+                        Date == "2023-02-14" ~ 18,
+                        Date == "2023-02-17" ~ 21,
+                        Date == "2023-02-20" ~ 24,
+                        Date == "2023-02-23" ~ 27,
+                        Date == "2023-02-27" ~ 31))
+
+```
+## Removing (filtering) data 
+Although we evaluated 4 species in this experiment, we need to remove Distichlis spicata,
+(or DISP), due to low emergence in all treatments. This species typically performs
+well in our experiments, so we assume that its low emergence was due to some 
+issue with this particular seed lot.
+```{r remove DISP}
+Germ <- Germ %>% 
+  filter(Species != "DISP")
+
+```
+
+## Changing incorrect data
+Last, we initially recorded 2 emergence counts for Salicornia rubra (SARU) at the
+40 PPT salinity level. At a later date, we decided that the "emergence" was more 
+likely the radicle unfurling with imbibition, but was not necessarily true emergence.
+To address this we will change the counts of emergence to 0 at these levels
+```{r change values, echo = TRUE}
+Germ$Emergence[Germ$Species == "SARU" & Germ$Salinity == "40" & 
+                       Germ$Emergence != "0"] <- 0
+```
+
+## Save your data object for future use
+Whew! Now that we've gone through all this effort we can save the cleaned data 
+object and simply load it for future coding use.
+
+```{r save object, echo = TRUE, eval = FALSE}
+getwd()
+setwd("../Processed_Data")
+save(Germ, file="DF_Germination.Rdata")
+list.files()
+```
+
+

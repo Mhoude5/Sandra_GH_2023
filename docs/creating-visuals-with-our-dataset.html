@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Creating Visuals with our dataset | Salinity and Germination for 3 native species and invasive Phragmites australis</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Creating Visuals with our dataset | Salinity and Germination for 3 native species and invasive Phragmites australis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Creating Visuals with our dataset | Salinity and Germination for 3 native species and invasive Phragmites australis" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Maddie Houde" />
+
+
+<meta name="date" content="2023-04-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-wrangling.html"/>
+<link rel="next" href="analyze-data.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Reproducible Data Science Final Project</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="1" data-path="database-structure.html"><a href="database-structure.html"><i class="fa fa-check"></i><b>1</b> Database Structure</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="database-structure.html"><a href="database-structure.html#describing-the-relational-structures-in-sandra-johnstons-2023-greenhouse-experiment."><i class="fa fa-check"></i><b>1.1</b> Describing the relational structures in Sandra Johnston’s 2023 Greenhouse Experiment.</a></li>
+<li class="chapter" data-level="1.2" data-path="database-structure.html"><a href="database-structure.html#build-database-tables"><i class="fa fa-check"></i><b>1.2</b> Build database tables</a></li>
+<li class="chapter" data-level="1.3" data-path="database-structure.html"><a href="database-structure.html#read-our-csv-files-and-connect-them"><i class="fa fa-check"></i><b>1.3</b> Read our CSV files and connect them</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>2</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-wrangling.html"><a href="data-wrangling.html#load-required-r-packages-and-raw-data"><i class="fa fa-check"></i><b>2.1</b> Load required R packages and raw data</a></li>
+<li class="chapter" data-level="2.2" data-path="data-wrangling.html"><a href="data-wrangling.html#changing-column-class"><i class="fa fa-check"></i><b>2.2</b> Changing column class</a></li>
+<li class="chapter" data-level="2.3" data-path="data-wrangling.html"><a href="data-wrangling.html#explore-the-data-frame"><i class="fa fa-check"></i><b>2.3</b> Explore the data frame</a></li>
+<li class="chapter" data-level="2.4" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-a-column"><i class="fa fa-check"></i><b>2.4</b> Adding a column</a></li>
+<li class="chapter" data-level="2.5" data-path="data-wrangling.html"><a href="data-wrangling.html#removing-filtering-data"><i class="fa fa-check"></i><b>2.5</b> Removing (filtering) data</a></li>
+<li class="chapter" data-level="2.6" data-path="data-wrangling.html"><a href="data-wrangling.html#changing-incorrect-data"><i class="fa fa-check"></i><b>2.6</b> Changing incorrect data</a></li>
+<li class="chapter" data-level="2.7" data-path="data-wrangling.html"><a href="data-wrangling.html#save-your-data-object-for-future-use"><i class="fa fa-check"></i><b>2.7</b> Save your data object for future use</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html"><i class="fa fa-check"></i><b>3</b> Creating Visuals with our dataset</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html#load-our-previously-cleaned-dataset"><i class="fa fa-check"></i><b>3.1</b> Load our previously cleaned dataset</a></li>
+<li class="chapter" data-level="3.2" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html#prepare-dataset-to-create-a-graph-showing-cumulative-germination-counts"><i class="fa fa-check"></i><b>3.2</b> Prepare dataset to create a graph showing cumulative germination counts</a></li>
+<li class="chapter" data-level="3.3" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html#cumulative-germination-graph"><i class="fa fa-check"></i><b>3.3</b> Cumulative Germination Graph</a></li>
+<li class="chapter" data-level="3.4" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html#cumulative-germination-graph-1"><i class="fa fa-check"></i><b>3.4</b> Cumulative Germination Graph</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="analyze-data.html"><a href="analyze-data.html"><i class="fa fa-check"></i><b>4</b> Analyze data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="analyze-data.html"><a href="analyze-data.html#load-data."><i class="fa fa-check"></i><b>4.1</b> Load data.</a></li>
+<li class="chapter" data-level="4.2" data-path="analyze-data.html"><a href="analyze-data.html#remove-40-ppt"><i class="fa fa-check"></i><b>4.2</b> Remove 40 PPT</a></li>
+<li class="chapter" data-level="4.3" data-path="analyze-data.html"><a href="analyze-data.html#poisson-model"><i class="fa fa-check"></i><b>4.3</b> Poisson model</a></li>
+<li class="chapter" data-level="4.4" data-path="analyze-data.html"><a href="analyze-data.html#poisson-model-diagnostic-plots"><i class="fa fa-check"></i><b>4.4</b> Poisson model diagnostic plots</a></li>
+<li class="chapter" data-level="4.5" data-path="analyze-data.html"><a href="analyze-data.html#negative-binomial-model"><i class="fa fa-check"></i><b>4.5</b> Negative binomial model</a></li>
+<li class="chapter" data-level="4.6" data-path="analyze-data.html"><a href="analyze-data.html#fixed-effects-prior"><i class="fa fa-check"></i><b>4.6</b> Fixed effects prior</a></li>
+<li class="chapter" data-level="4.7" data-path="analyze-data.html"><a href="analyze-data.html#weaker-fixed-effects-priors"><i class="fa fa-check"></i><b>4.7</b> Weaker fixed effects priors</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="drawing-further-inference.html"><a href="drawing-further-inference.html"><i class="fa fa-check"></i><b>5</b> Drawing further inference</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="drawing-further-inference.html"><a href="drawing-further-inference.html#pairwise-comparison"><i class="fa fa-check"></i><b>5.1</b> Pairwise comparison</a></li>
+<li class="chapter" data-level="5.2" data-path="drawing-further-inference.html"><a href="drawing-further-inference.html#conclusions"><i class="fa fa-check"></i><b>5.2</b> Conclusions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Salinity and Germination for 3 native species and invasive Phragmites australis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="creating-visuals-with-our-dataset" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Creating Visuals with our dataset<a href="creating-visuals-with-our-dataset.html#creating-visuals-with-our-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this chapter, I will create a few graphs showing raw data results
+from the experiment.</p>
+<div id="load-our-previously-cleaned-dataset" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Load our previously cleaned dataset<a href="creating-visuals-with-our-dataset.html#load-our-previously-cleaned-dataset" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="creating-visuals-with-our-dataset.html#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;C:/Users/mhoud/Documents/Experiments_R/Sandra_GH_2023/Website_Reproducible-Data&quot;</code></pre>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="creating-visuals-with-our-dataset.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;../Processed_Data&quot;</span>)</span>
+<span id="cb91-2"><a href="creating-visuals-with-our-dataset.html#cb91-2" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;Code_Germination.R&quot;                 &quot;DF_Germination-Fresh-25-Only.RData&quot;
+## [3] &quot;DF_Germination.Rdata&quot;               &quot;Germ_mean.Rdata&quot;                   
+## [5] &quot;Model_object.RData&quot;</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="creating-visuals-with-our-dataset.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;DF_Germination.RData&quot;</span>)</span></code></pre></div>
+<p>We also want to load any required packages. We could call these individually,
+or we could simply load tidyverse</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="creating-visuals-with-our-dataset.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+</div>
+<div id="prepare-dataset-to-create-a-graph-showing-cumulative-germination-counts" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Prepare dataset to create a graph showing cumulative germination counts<a href="creating-visuals-with-our-dataset.html#prepare-dataset-to-create-a-graph-showing-cumulative-germination-counts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="creating-visuals-with-our-dataset.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Germ)</span></code></pre></div>
+<pre><code>##   Species Column Row Salinity       Date Emergence Species_Tmt_Pos Day
+## 1    PHAU      1   1    Fresh 2023-01-30         0 PHAU_Fresh_C1R1   3
+## 2    SARU      1   1    Fresh 2023-01-30         0 SARU_Fresh_C1R1   3
+## 3    ALOC      1   1    Fresh 2023-01-30         0 ALOC_Fresh_C1R1   3
+## 4    PHAU      1   2       40 2023-01-30         0    PHAU_40_C1R2   3
+## 5    SARU      1   2       40 2023-01-30         0    SARU_40_C1R2   3
+## 6    ALOC      1   2       40 2023-01-30         0    ALOC_40_C1R2   3</code></pre>
+<p>Here, we can see that we have emergence counts for each species and salinity level,
+but these are not cumulative counts. We need to do several things. 1) create a
+cumulative emergence column 2) average across the species and salinity interaction,
+and 3) create a standard error of these values.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="creating-visuals-with-our-dataset.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a standard error function</span></span>
+<span id="cb97-2"><a href="creating-visuals-with-our-dataset.html#cb97-2" aria-hidden="true" tabindex="-1"></a>std.error <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">sd</span>(x)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">length</span>(x))</span>
+<span id="cb97-3"><a href="creating-visuals-with-our-dataset.html#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-4"><a href="creating-visuals-with-our-dataset.html#cb97-4" aria-hidden="true" tabindex="-1"></a>Germ <span class="ot">&lt;-</span> Germ <span class="sc">%&gt;%</span> </span>
+<span id="cb97-5"><a href="creating-visuals-with-our-dataset.html#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species_Tmt_Pos) <span class="sc">%&gt;%</span> </span>
+<span id="cb97-6"><a href="creating-visuals-with-our-dataset.html#cb97-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total_Germination =</span> <span class="fu">cumsum</span>(Emergence)) <span class="sc">%&gt;%</span> </span>
+<span id="cb97-7"><a href="creating-visuals-with-our-dataset.html#cb97-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb97-8"><a href="creating-visuals-with-our-dataset.html#cb97-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Salinity =</span> <span class="fu">factor</span>(Salinity, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Fresh&quot;</span>, <span class="st">&quot;25&quot;</span>, <span class="st">&quot;40&quot;</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb97-9"><a href="creating-visuals-with-our-dataset.html#cb97-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Species, Salinity, Day) <span class="sc">%&gt;%</span> </span>
+<span id="cb97-10"><a href="creating-visuals-with-our-dataset.html#cb97-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">SE =</span> <span class="fu">std.error</span>(Total_Germination),</span>
+<span id="cb97-11"><a href="creating-visuals-with-our-dataset.html#cb97-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Total_Germination =</span> <span class="fu">mean</span>(Total_Germination)) <span class="sc">%&gt;%</span> </span>
+<span id="cb97-12"><a href="creating-visuals-with-our-dataset.html#cb97-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb97-13"><a href="creating-visuals-with-our-dataset.html#cb97-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>()</span></code></pre></div>
+<pre><code>## `summarise()` has grouped output by &#39;Species&#39;, &#39;Salinity&#39;. You can override
+## using the `.groups` argument.</code></pre>
+</div>
+<div id="cumulative-germination-graph" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Cumulative Germination Graph<a href="creating-visuals-with-our-dataset.html#cumulative-germination-graph" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="creating-visuals-with-our-dataset.html#cb99-1" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;darkblue&quot;</span>, <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;lightblue&quot;</span>)</span>
+<span id="cb99-2"><a href="creating-visuals-with-our-dataset.html#cb99-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb99-3"><a href="creating-visuals-with-our-dataset.html#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Germ, </span>
+<span id="cb99-4"><a href="creating-visuals-with-our-dataset.html#cb99-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> Total_Germination, <span class="at">color =</span> Species)) <span class="sc">+</span></span>
+<span id="cb99-5"><a href="creating-visuals-with-our-dataset.html#cb99-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb99-6"><a href="creating-visuals-with-our-dataset.html#cb99-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb99-7"><a href="creating-visuals-with-our-dataset.html#cb99-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="at">ymin =</span> Germ<span class="sc">$</span>Total_Germination <span class="sc">-</span> Germ<span class="sc">$</span>SE,</span>
+<span id="cb99-8"><a href="creating-visuals-with-our-dataset.html#cb99-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ymax =</span> Germ<span class="sc">$</span>Total_Germination <span class="sc">+</span> Germ<span class="sc">$</span>SE) <span class="sc">+</span></span>
+<span id="cb99-9"><a href="creating-visuals-with-our-dataset.html#cb99-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Cumulative Germination&quot;</span>,</span>
+<span id="cb99-10"><a href="creating-visuals-with-our-dataset.html#cb99-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Monitoring Day&quot;</span>,</span>
+<span id="cb99-11"><a href="creating-visuals-with-our-dataset.html#cb99-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Mean Cumulative Germination ± SE&quot;</span>) <span class="sc">+</span></span>
+<span id="cb99-12"><a href="creating-visuals-with-our-dataset.html#cb99-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>),</span>
+<span id="cb99-13"><a href="creating-visuals-with-our-dataset.html#cb99-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">22</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb99-14"><a href="creating-visuals-with-our-dataset.html#cb99-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
+<span id="cb99-15"><a href="creating-visuals-with-our-dataset.html#cb99-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>),</span>
+<span id="cb99-16"><a href="creating-visuals-with-our-dataset.html#cb99-16" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb99-17"><a href="creating-visuals-with-our-dataset.html#cb99-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> vec) <span class="sc">+</span></span>
+<span id="cb99-18"><a href="creating-visuals-with-our-dataset.html#cb99-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span> <span class="co"># Set 100 upper limit since that is what we seeded</span></span>
+<span id="cb99-19"><a href="creating-visuals-with-our-dataset.html#cb99-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Salinity) <span class="sc">+</span></span>
+<span id="cb99-20"><a href="creating-visuals-with-our-dataset.html#cb99-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() </span></code></pre></div>
+<p><img src="_main_files/figure-html/cumemerg%20graph-1.png" width="672" />
+Above we created a graph that was faceted by salinity. Now, we would like to facet
+by species to view species-specific tolerances to salinity.</p>
+</div>
+<div id="cumulative-germination-graph-1" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Cumulative Germination Graph<a href="creating-visuals-with-our-dataset.html#cumulative-germination-graph-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="creating-visuals-with-our-dataset.html#cb100-1" aria-hidden="true" tabindex="-1"></a>vec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;yellow&quot;</span>, <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb100-2"><a href="creating-visuals-with-our-dataset.html#cb100-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb100-3"><a href="creating-visuals-with-our-dataset.html#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Germ, </span>
+<span id="cb100-4"><a href="creating-visuals-with-our-dataset.html#cb100-4" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Day, <span class="at">y =</span> Total_Germination, <span class="at">color =</span> Salinity)) <span class="sc">+</span></span>
+<span id="cb100-5"><a href="creating-visuals-with-our-dataset.html#cb100-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb100-6"><a href="creating-visuals-with-our-dataset.html#cb100-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb100-7"><a href="creating-visuals-with-our-dataset.html#cb100-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="at">ymin =</span> Germ<span class="sc">$</span>Total_Germination <span class="sc">-</span> Germ<span class="sc">$</span>SE,</span>
+<span id="cb100-8"><a href="creating-visuals-with-our-dataset.html#cb100-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">ymax =</span> Germ<span class="sc">$</span>Total_Germination <span class="sc">+</span> Germ<span class="sc">$</span>SE) <span class="sc">+</span></span>
+<span id="cb100-9"><a href="creating-visuals-with-our-dataset.html#cb100-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Cumulative Germination&quot;</span>,</span>
+<span id="cb100-10"><a href="creating-visuals-with-our-dataset.html#cb100-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;Monitoring Day&quot;</span>,</span>
+<span id="cb100-11"><a href="creating-visuals-with-our-dataset.html#cb100-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Mean Cumulative Germination ± SE&quot;</span>) <span class="sc">+</span></span>
+<span id="cb100-12"><a href="creating-visuals-with-our-dataset.html#cb100-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>),</span>
+<span id="cb100-13"><a href="creating-visuals-with-our-dataset.html#cb100-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">22</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb100-14"><a href="creating-visuals-with-our-dataset.html#cb100-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
+<span id="cb100-15"><a href="creating-visuals-with-our-dataset.html#cb100-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>),</span>
+<span id="cb100-16"><a href="creating-visuals-with-our-dataset.html#cb100-16" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb100-17"><a href="creating-visuals-with-our-dataset.html#cb100-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> vec) <span class="sc">+</span></span>
+<span id="cb100-18"><a href="creating-visuals-with-our-dataset.html#cb100-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="dv">0</span>, <span class="dv">100</span>) <span class="sc">+</span> <span class="co"># Set 100 upper limit since that is what we seeded</span></span>
+<span id="cb100-19"><a href="creating-visuals-with-our-dataset.html#cb100-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> Species) <span class="sc">+</span></span>
+<span id="cb100-20"><a href="creating-visuals-with-our-dataset.html#cb100-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() </span></code></pre></div>
+<p><img src="_main_files/figure-html/species%20facet-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-wrangling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="analyze-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/3_Visuals.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Data Wrangling | Salinity and Germination for 3 native species and invasive Phragmites australis</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Data Wrangling | Salinity and Germination for 3 native species and invasive Phragmites australis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Data Wrangling | Salinity and Germination for 3 native species and invasive Phragmites australis" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Maddie Houde" />
+
+
+<meta name="date" content="2023-04-26" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="database-structure.html"/>
+<link rel="next" href="creating-visuals-with-our-dataset.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Reproducible Data Science Final Project</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="1" data-path="database-structure.html"><a href="database-structure.html"><i class="fa fa-check"></i><b>1</b> Database Structure</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="database-structure.html"><a href="database-structure.html#describing-the-relational-structures-in-sandra-johnstons-2023-greenhouse-experiment."><i class="fa fa-check"></i><b>1.1</b> Describing the relational structures in Sandra Johnston’s 2023 Greenhouse Experiment.</a></li>
+<li class="chapter" data-level="1.2" data-path="database-structure.html"><a href="database-structure.html#build-database-tables"><i class="fa fa-check"></i><b>1.2</b> Build database tables</a></li>
+<li class="chapter" data-level="1.3" data-path="database-structure.html"><a href="database-structure.html#read-our-csv-files-and-connect-them"><i class="fa fa-check"></i><b>1.3</b> Read our CSV files and connect them</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>2</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-wrangling.html"><a href="data-wrangling.html#load-required-r-packages-and-raw-data"><i class="fa fa-check"></i><b>2.1</b> Load required R packages and raw data</a></li>
+<li class="chapter" data-level="2.2" data-path="data-wrangling.html"><a href="data-wrangling.html#changing-column-class"><i class="fa fa-check"></i><b>2.2</b> Changing column class</a></li>
+<li class="chapter" data-level="2.3" data-path="data-wrangling.html"><a href="data-wrangling.html#explore-the-data-frame"><i class="fa fa-check"></i><b>2.3</b> Explore the data frame</a></li>
+<li class="chapter" data-level="2.4" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-a-column"><i class="fa fa-check"></i><b>2.4</b> Adding a column</a></li>
+<li class="chapter" data-level="2.5" data-path="data-wrangling.html"><a href="data-wrangling.html#removing-filtering-data"><i class="fa fa-check"></i><b>2.5</b> Removing (filtering) data</a></li>
+<li class="chapter" data-level="2.6" data-path="data-wrangling.html"><a href="data-wrangling.html#changing-incorrect-data"><i class="fa fa-check"></i><b>2.6</b> Changing incorrect data</a></li>
+<li class="chapter" data-level="2.7" data-path="data-wrangling.html"><a href="data-wrangling.html#save-your-data-object-for-future-use"><i class="fa fa-check"></i><b>2.7</b> Save your data object for future use</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html"><i class="fa fa-check"></i><b>3</b> Creating Visuals with our dataset</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html#load-our-previously-cleaned-dataset"><i class="fa fa-check"></i><b>3.1</b> Load our previously cleaned dataset</a></li>
+<li class="chapter" data-level="3.2" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html#prepare-dataset-to-create-a-graph-showing-cumulative-germination-counts"><i class="fa fa-check"></i><b>3.2</b> Prepare dataset to create a graph showing cumulative germination counts</a></li>
+<li class="chapter" data-level="3.3" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html#cumulative-germination-graph"><i class="fa fa-check"></i><b>3.3</b> Cumulative Germination Graph</a></li>
+<li class="chapter" data-level="3.4" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html#cumulative-germination-graph-1"><i class="fa fa-check"></i><b>3.4</b> Cumulative Germination Graph</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="analyze-data.html"><a href="analyze-data.html"><i class="fa fa-check"></i><b>4</b> Analyze data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="analyze-data.html"><a href="analyze-data.html#load-data."><i class="fa fa-check"></i><b>4.1</b> Load data.</a></li>
+<li class="chapter" data-level="4.2" data-path="analyze-data.html"><a href="analyze-data.html#remove-40-ppt"><i class="fa fa-check"></i><b>4.2</b> Remove 40 PPT</a></li>
+<li class="chapter" data-level="4.3" data-path="analyze-data.html"><a href="analyze-data.html#poisson-model"><i class="fa fa-check"></i><b>4.3</b> Poisson model</a></li>
+<li class="chapter" data-level="4.4" data-path="analyze-data.html"><a href="analyze-data.html#poisson-model-diagnostic-plots"><i class="fa fa-check"></i><b>4.4</b> Poisson model diagnostic plots</a></li>
+<li class="chapter" data-level="4.5" data-path="analyze-data.html"><a href="analyze-data.html#negative-binomial-model"><i class="fa fa-check"></i><b>4.5</b> Negative binomial model</a></li>
+<li class="chapter" data-level="4.6" data-path="analyze-data.html"><a href="analyze-data.html#fixed-effects-prior"><i class="fa fa-check"></i><b>4.6</b> Fixed effects prior</a></li>
+<li class="chapter" data-level="4.7" data-path="analyze-data.html"><a href="analyze-data.html#weaker-fixed-effects-priors"><i class="fa fa-check"></i><b>4.7</b> Weaker fixed effects priors</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="drawing-further-inference.html"><a href="drawing-further-inference.html"><i class="fa fa-check"></i><b>5</b> Drawing further inference</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="drawing-further-inference.html"><a href="drawing-further-inference.html#pairwise-comparison"><i class="fa fa-check"></i><b>5.1</b> Pairwise comparison</a></li>
+<li class="chapter" data-level="5.2" data-path="drawing-further-inference.html"><a href="drawing-further-inference.html#conclusions"><i class="fa fa-check"></i><b>5.2</b> Conclusions</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Salinity and Germination for 3 native species and invasive Phragmites australis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-wrangling" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Data Wrangling<a href="data-wrangling.html#data-wrangling" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this chapter, I take a raw .CSV file and use data wrangling techniques to prepare
+it for future analysis and graphing.</p>
+<div id="load-required-r-packages-and-raw-data" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Load required R packages and raw data<a href="data-wrangling.html#load-required-r-packages-and-raw-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>I first need to clean up the data from the greenhouse experiment and get it into
+a logical order. Let’s begin!</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="data-wrangling.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required packages</span></span>
+<span id="cb36-2"><a href="data-wrangling.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.1.3</code></pre>
+<pre><code>## -- Attaching packages ---------------------------------------- tidyverse 1.3.2 --
+## v ggplot2 3.4.0      v purrr   1.0.0 
+## v tibble  3.1.8      v dplyr   1.0.10
+## v tidyr   1.2.1      v stringr 1.5.0 
+## v readr   2.1.3      v forcats 0.5.2</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.1.3</code></pre>
+<pre><code>## Warning: package &#39;tibble&#39; was built under R version 4.1.3</code></pre>
+<pre><code>## Warning: package &#39;tidyr&#39; was built under R version 4.1.3</code></pre>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.1.3</code></pre>
+<pre><code>## Warning: package &#39;purrr&#39; was built under R version 4.1.3</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.1.3</code></pre>
+<pre><code>## Warning: package &#39;stringr&#39; was built under R version 4.1.3</code></pre>
+<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.1.3</code></pre>
+<pre><code>## -- Conflicts ------------------------------------------- tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="data-wrangling.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load our data</span></span>
+<span id="cb48-2"><a href="data-wrangling.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;../Raw_Data&quot;</span>)</span>
+<span id="cb48-3"><a href="data-wrangling.html#cb48-3" aria-hidden="true" tabindex="-1"></a>Germ <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;Germination.csv&quot;</span>, <span class="at">header=</span>T)</span>
+<span id="cb48-4"><a href="data-wrangling.html#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Germ)</span></code></pre></div>
+<pre><code>##   Species Column Row Salinity    Date Emergence Observer
+## 1    PHAU      1   1    Fresh 1/30/23         0       MH
+## 2    SARU      1   1    Fresh 1/30/23         0       MH
+## 3    DISP      1   1    Fresh 1/30/23         0       MH
+## 4    ALOC      1   1    Fresh 1/30/23         0       MH
+## 5    PHAU      1   2       40 1/30/23         0       MH
+## 6    SARU      1   2       40 1/30/23         0       MH
+##                                                                                                                                                                                              Notes
+## 1 day 3 of exp. Water EC logged on probe. in col 1 grouping 1 (row 1), I logged SARU, then a mistake remove (potentially wrong spp), then correct remark for ALOC. Delete this middle rmeark. -MH 
+## 2                                                                                                                                                                                                 
+## 3                                                                                                                                                                                                 
+## 4                                                                                                                                                                                                 
+## 5                                                                                                                                                                                                 
+## 6                                                                                                                                                                                                 
+##   Checked_by Species_Tmt_Pos
+## 1         SJ PHAU_Fresh_C1R1
+## 2         SJ SARU_Fresh_C1R1
+## 3         SJ DISP_Fresh_C1R1
+## 4         SJ ALOC_Fresh_C1R1
+## 5         SJ    PHAU_40_C1R2
+## 6         SJ    SARU_40_C1R2</code></pre>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="data-wrangling.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Drop columns we don&#39;t need</span></span>
+<span id="cb50-2"><a href="data-wrangling.html#cb50-2" aria-hidden="true" tabindex="-1"></a>Germ <span class="ot">&lt;-</span> Germ[ , <span class="sc">-</span><span class="fu">c</span>(<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>)]</span></code></pre></div>
+<p>Tidyverse can be a clearer way to drop columns. For example, we could have written:</p>
+<ul>
+<li>Germ &lt;- Germ %&gt;%
+select(-c(Observer:Checked_by))
+and gotten the same result.</li>
+</ul>
+</div>
+<div id="changing-column-class" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Changing column class<a href="data-wrangling.html#changing-column-class" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We need to ensure R is reading our data how we would like. Typically, this requires
+changing the column class by specifying what format our data is in. But to do
+that - we need to know what class our data currently is!</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="data-wrangling.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View default class</span></span>
+<span id="cb51-2"><a href="data-wrangling.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(Germ, class)</span></code></pre></div>
+<pre><code>##         Species          Column             Row        Salinity            Date 
+##     &quot;character&quot;       &quot;integer&quot;       &quot;integer&quot;     &quot;character&quot;     &quot;character&quot; 
+##       Emergence Species_Tmt_Pos 
+##       &quot;integer&quot;     &quot;character&quot;</code></pre>
+<p>We would like Species, Column, Row, Salinity, and Species_Tmt_Pos to be classed
+as factors. Additionally, we want our Date column to be classed as a date.</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="data-wrangling.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A slow way to change column class is to call each column directly, like below</span></span>
+<span id="cb53-2"><a href="data-wrangling.html#cb53-2" aria-hidden="true" tabindex="-1"></a>Germ<span class="sc">$</span>Species <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Germ<span class="sc">$</span>Species)</span>
+<span id="cb53-3"><a href="data-wrangling.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(Germ<span class="sc">$</span>Species)</span></code></pre></div>
+<pre><code>## [1] &quot;factor&quot;</code></pre>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="data-wrangling.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here is a faster way to change multiple column classes</span></span>
+<span id="cb55-2"><a href="data-wrangling.html#cb55-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector containing all of our future factor column names</span></span>
+<span id="cb55-3"><a href="data-wrangling.html#cb55-3" aria-hidden="true" tabindex="-1"></a>factor_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Species&quot;</span>, <span class="st">&quot;Column&quot;</span>, <span class="st">&quot;Row&quot;</span>, <span class="st">&quot;Salinity&quot;</span>, <span class="st">&quot;Species_Tmt_Pos&quot;</span>)</span>
+<span id="cb55-4"><a href="data-wrangling.html#cb55-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Use baseR functions to change all of these columns in one line of code</span></span>
+<span id="cb55-5"><a href="data-wrangling.html#cb55-5" aria-hidden="true" tabindex="-1"></a>Germ[factor_cols]<span class="ot">&lt;-</span><span class="fu">lapply</span>(Germ[factor_cols], as.factor)</span></code></pre></div>
+<p>Dates are a special kind of class in R. We can use library(lubridate) to set this
+up.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="data-wrangling.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View how our dates are written</span></span>
+<span id="cb56-2"><a href="data-wrangling.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Germ, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##   Species Column Row Salinity    Date Emergence Species_Tmt_Pos
+## 1    PHAU      1   1    Fresh 1/30/23         0 PHAU_Fresh_C1R1
+## 2    SARU      1   1    Fresh 1/30/23         0 SARU_Fresh_C1R1</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="data-wrangling.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># These are written in mm dd yy format, so we can use the lubridate function mdy()</span></span>
+<span id="cb58-2"><a href="data-wrangling.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co"># to change the class</span></span>
+<span id="cb58-3"><a href="data-wrangling.html#cb58-3" aria-hidden="true" tabindex="-1"></a>Germ<span class="sc">$</span>Date <span class="ot">&lt;-</span> lubridate<span class="sc">::</span><span class="fu">mdy</span>(Germ<span class="sc">$</span>Date)</span></code></pre></div>
+<p>Great! We should have our classes all in the right order now!
+Let’s check</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="data-wrangling.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(Germ, class)</span></code></pre></div>
+<pre><code>##         Species          Column             Row        Salinity            Date 
+##        &quot;factor&quot;        &quot;factor&quot;        &quot;factor&quot;        &quot;factor&quot;          &quot;Date&quot; 
+##       Emergence Species_Tmt_Pos 
+##       &quot;integer&quot;        &quot;factor&quot;</code></pre>
+</div>
+<div id="explore-the-data-frame" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Explore the data frame<a href="data-wrangling.html#explore-the-data-frame" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now we take a birds eye view of our data frame and check for typos, reasonable
+values, and more.</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="data-wrangling.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="co"># How many rows is our data frame?</span></span>
+<span id="cb61-2"><a href="data-wrangling.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span>(Germ) </span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="data-wrangling.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Do we have any NAs? and if so - where are they located in our dataframe?</span></span>
+<span id="cb63-2"><a href="data-wrangling.html#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(<span class="fu">is.na</span>(Germ))</span></code></pre></div>
+<pre><code>## integer(0)</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="data-wrangling.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View our min and max emergence to check for reasonable values</span></span>
+<span id="cb65-2"><a href="data-wrangling.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="co"># We could do this with baseR</span></span>
+<span id="cb65-3"><a href="data-wrangling.html#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(Germ<span class="sc">$</span>Emergence)</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="data-wrangling.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(Germ<span class="sc">$</span>Emergence)</span></code></pre></div>
+<pre><code>## [1] 48</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="data-wrangling.html#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or with Tidyverse</span></span>
+<span id="cb69-2"><a href="data-wrangling.html#cb69-2" aria-hidden="true" tabindex="-1"></a>Germ <span class="sc">%&gt;%</span> </span>
+<span id="cb69-3"><a href="data-wrangling.html#cb69-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Emergence) <span class="sc">%&gt;%</span> </span>
+<span id="cb69-4"><a href="data-wrangling.html#cb69-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">max</span>()</span></code></pre></div>
+<pre><code>## [1] 48</code></pre>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="data-wrangling.html#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can also check our factor levels to see if we have any typos, or unexpected</span></span>
+<span id="cb71-2"><a href="data-wrangling.html#cb71-2" aria-hidden="true" tabindex="-1"></a><span class="co"># values, etc..</span></span>
+<span id="cb71-3"><a href="data-wrangling.html#cb71-3" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(Germ<span class="sc">$</span>Species)</span></code></pre></div>
+<pre><code>## [1] &quot;ALOC&quot; &quot;DISP&quot; &quot;PHAU&quot; &quot;SARU&quot;</code></pre>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="data-wrangling.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(Germ<span class="sc">$</span>Salinity)</span></code></pre></div>
+<pre><code>## [1] &quot;25&quot;    &quot;40&quot;    &quot;Fresh&quot;</code></pre>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="data-wrangling.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(Germ<span class="sc">$</span>Column)</span></code></pre></div>
+<pre><code>## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot;</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="data-wrangling.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">levels</span>(Germ<span class="sc">$</span>Row)</span></code></pre></div>
+<pre><code>## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot;</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="data-wrangling.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively, we can use a Lapply function to view levels of each factor column</span></span>
+<span id="cb79-2"><a href="data-wrangling.html#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="co"># at once!</span></span>
+<span id="cb79-3"><a href="data-wrangling.html#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(Germ, levels)</span></code></pre></div>
+<pre><code>## $Species
+## [1] &quot;ALOC&quot; &quot;DISP&quot; &quot;PHAU&quot; &quot;SARU&quot;
+## 
+## $Column
+## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot;
+## 
+## $Row
+## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot;
+## 
+## $Salinity
+## [1] &quot;25&quot;    &quot;40&quot;    &quot;Fresh&quot;
+## 
+## $Date
+## NULL
+## 
+## $Emergence
+## NULL
+## 
+## $Species_Tmt_Pos
+##  [1] &quot;ALOC_25_C1R3&quot;    &quot;ALOC_25_C2R1&quot;    &quot;ALOC_25_C3R2&quot;    &quot;ALOC_25_C3R4&quot;   
+##  [5] &quot;ALOC_40_C1R2&quot;    &quot;ALOC_40_C1R4&quot;    &quot;ALOC_40_C2R3&quot;    &quot;ALOC_40_C3R1&quot;   
+##  [9] &quot;ALOC_Fresh_C1R1&quot; &quot;ALOC_Fresh_C2R2&quot; &quot;ALOC_Fresh_C2R4&quot; &quot;ALOC_Fresh_C3R3&quot;
+## [13] &quot;DISP_25_C1R3&quot;    &quot;DISP_25_C2R1&quot;    &quot;DISP_25_C3R2&quot;    &quot;DISP_25_C3R4&quot;   
+## [17] &quot;DISP_40_C1R2&quot;    &quot;DISP_40_C1R4&quot;    &quot;DISP_40_C2R3&quot;    &quot;DISP_40_C3R1&quot;   
+## [21] &quot;DISP_Fresh_C1R1&quot; &quot;DISP_Fresh_C2R2&quot; &quot;DISP_Fresh_C2R4&quot; &quot;DISP_Fresh_C3R3&quot;
+## [25] &quot;PHAU_25_C1R3&quot;    &quot;PHAU_25_C2R1&quot;    &quot;PHAU_25_C3R2&quot;    &quot;PHAU_25_C3R4&quot;   
+## [29] &quot;PHAU_40_C1R2&quot;    &quot;PHAU_40_C1R4&quot;    &quot;PHAU_40_C2R3&quot;    &quot;PHAU_40_C3R1&quot;   
+## [33] &quot;PHAU_Fresh_C1R1&quot; &quot;PHAU_Fresh_C2R2&quot; &quot;PHAU_Fresh_C2R4&quot; &quot;PHAU_Fresh_C3R3&quot;
+## [37] &quot;SARU_25_C1R3&quot;    &quot;SARU_25_C2R1&quot;    &quot;SARU_25_C3R2&quot;    &quot;SARU_25_C3R4&quot;   
+## [41] &quot;SARU_40_C1R2&quot;    &quot;SARU_40_C1R4&quot;    &quot;SARU_40_C2R3&quot;    &quot;SARU_40_C3R1&quot;   
+## [45] &quot;SARU_Fresh_C1R1&quot; &quot;SARU_Fresh_C2R2&quot; &quot;SARU_Fresh_C2R4&quot; &quot;SARU_Fresh_C3R3&quot;</code></pre>
+</div>
+<div id="adding-a-column" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Adding a column<a href="data-wrangling.html#adding-a-column" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Our dataframe includes monitoring date, but it would be more intuitive if we had
+a column that specified experiment day rather than date. Let’s add one.</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="data-wrangling.html#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View how many unique dates we recorded emergence</span></span>
+<span id="cb81-2"><a href="data-wrangling.html#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(Germ<span class="sc">$</span>Date)</span></code></pre></div>
+<pre><code>##  [1] &quot;2023-01-30&quot; &quot;2023-02-02&quot; &quot;2023-02-05&quot; &quot;2023-02-08&quot; &quot;2023-02-11&quot;
+##  [6] &quot;2023-02-14&quot; &quot;2023-02-17&quot; &quot;2023-02-20&quot; &quot;2023-02-23&quot; &quot;2023-02-27&quot;</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="data-wrangling.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Alternatively in tidyverse...</span></span>
+<span id="cb83-2"><a href="data-wrangling.html#cb83-2" aria-hidden="true" tabindex="-1"></a>Germ <span class="sc">%&gt;%</span> </span>
+<span id="cb83-3"><a href="data-wrangling.html#cb83-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Date) <span class="sc">%&gt;%</span> </span>
+<span id="cb83-4"><a href="data-wrangling.html#cb83-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code></pre></div>
+<pre><code>##          Date
+## 1  2023-01-30
+## 2  2023-02-02
+## 3  2023-02-05
+## 4  2023-02-08
+## 5  2023-02-11
+## 6  2023-02-14
+## 7  2023-02-17
+## 8  2023-02-20
+## 9  2023-02-23
+## 10 2023-02-27</code></pre>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="data-wrangling.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a column where 01-30 is day 3 of the experiment, and then continued..</span></span>
+<span id="cb85-2"><a href="data-wrangling.html#cb85-2" aria-hidden="true" tabindex="-1"></a>Germ <span class="ot">&lt;-</span> Germ <span class="sc">%&gt;%</span></span>
+<span id="cb85-3"><a href="data-wrangling.html#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Day =</span> dplyr<span class="sc">::</span><span class="fu">case_when</span>(</span>
+<span id="cb85-4"><a href="data-wrangling.html#cb85-4" aria-hidden="true" tabindex="-1"></a>                        Date <span class="sc">==</span> <span class="st">&quot;2023-01-30&quot;</span> <span class="sc">~</span> <span class="dv">3</span>,</span>
+<span id="cb85-5"><a href="data-wrangling.html#cb85-5" aria-hidden="true" tabindex="-1"></a>                        Date <span class="sc">==</span> <span class="st">&quot;2023-02-02&quot;</span> <span class="sc">~</span> <span class="dv">6</span>,</span>
+<span id="cb85-6"><a href="data-wrangling.html#cb85-6" aria-hidden="true" tabindex="-1"></a>                        Date <span class="sc">==</span> <span class="st">&quot;2023-02-05&quot;</span> <span class="sc">~</span> <span class="dv">9</span>,</span>
+<span id="cb85-7"><a href="data-wrangling.html#cb85-7" aria-hidden="true" tabindex="-1"></a>                        Date <span class="sc">==</span> <span class="st">&quot;2023-02-08&quot;</span> <span class="sc">~</span> <span class="dv">12</span>,</span>
+<span id="cb85-8"><a href="data-wrangling.html#cb85-8" aria-hidden="true" tabindex="-1"></a>                        Date <span class="sc">==</span> <span class="st">&quot;2023-02-11&quot;</span> <span class="sc">~</span> <span class="dv">15</span>,</span>
+<span id="cb85-9"><a href="data-wrangling.html#cb85-9" aria-hidden="true" tabindex="-1"></a>                        Date <span class="sc">==</span> <span class="st">&quot;2023-02-14&quot;</span> <span class="sc">~</span> <span class="dv">18</span>,</span>
+<span id="cb85-10"><a href="data-wrangling.html#cb85-10" aria-hidden="true" tabindex="-1"></a>                        Date <span class="sc">==</span> <span class="st">&quot;2023-02-17&quot;</span> <span class="sc">~</span> <span class="dv">21</span>,</span>
+<span id="cb85-11"><a href="data-wrangling.html#cb85-11" aria-hidden="true" tabindex="-1"></a>                        Date <span class="sc">==</span> <span class="st">&quot;2023-02-20&quot;</span> <span class="sc">~</span> <span class="dv">24</span>,</span>
+<span id="cb85-12"><a href="data-wrangling.html#cb85-12" aria-hidden="true" tabindex="-1"></a>                        Date <span class="sc">==</span> <span class="st">&quot;2023-02-23&quot;</span> <span class="sc">~</span> <span class="dv">27</span>,</span>
+<span id="cb85-13"><a href="data-wrangling.html#cb85-13" aria-hidden="true" tabindex="-1"></a>                        Date <span class="sc">==</span> <span class="st">&quot;2023-02-27&quot;</span> <span class="sc">~</span> <span class="dv">31</span>))</span></code></pre></div>
+</div>
+<div id="removing-filtering-data" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Removing (filtering) data<a href="data-wrangling.html#removing-filtering-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Although we evaluated 4 species in this experiment, we need to remove Distichlis spicata,
+(or DISP), due to low emergence in all treatments. This species typically performs
+well in our experiments, so we assume that its low emergence was due to some
+issue with this particular seed lot.</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="data-wrangling.html#cb86-1" aria-hidden="true" tabindex="-1"></a>Germ <span class="ot">&lt;-</span> Germ <span class="sc">%&gt;%</span> </span>
+<span id="cb86-2"><a href="data-wrangling.html#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Species <span class="sc">!=</span> <span class="st">&quot;DISP&quot;</span>)</span></code></pre></div>
+</div>
+<div id="changing-incorrect-data" class="section level2 hasAnchor" number="2.6">
+<h2><span class="header-section-number">2.6</span> Changing incorrect data<a href="data-wrangling.html#changing-incorrect-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Last, we initially recorded 2 emergence counts for Salicornia rubra (SARU) at the
+40 PPT salinity level. At a later date, we decided that the “emergence” was more
+likely the radicle unfurling with imbibition, but was not necessarily true emergence.
+To address this we will change the counts of emergence to 0 at these levels</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="data-wrangling.html#cb87-1" aria-hidden="true" tabindex="-1"></a>Germ<span class="sc">$</span>Emergence[Germ<span class="sc">$</span>Species <span class="sc">==</span> <span class="st">&quot;SARU&quot;</span> <span class="sc">&amp;</span> Germ<span class="sc">$</span>Salinity <span class="sc">==</span> <span class="st">&quot;40&quot;</span> <span class="sc">&amp;</span> </span>
+<span id="cb87-2"><a href="data-wrangling.html#cb87-2" aria-hidden="true" tabindex="-1"></a>                       Germ<span class="sc">$</span>Emergence <span class="sc">!=</span> <span class="st">&quot;0&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span></code></pre></div>
+</div>
+<div id="save-your-data-object-for-future-use" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Save your data object for future use<a href="data-wrangling.html#save-your-data-object-for-future-use" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Whew! Now that we’ve gone through all this effort we can save the cleaned data
+object and simply load it for future coding use.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="data-wrangling.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
+<span id="cb88-2"><a href="data-wrangling.html#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;../Processed_Data&quot;</span>)</span>
+<span id="cb88-3"><a href="data-wrangling.html#cb88-3" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(Germ, <span class="at">file=</span><span class="st">&quot;DF_Germination.Rdata&quot;</span>)</span>
+<span id="cb88-4"><a href="data-wrangling.html#cb88-4" aria-hidden="true" tabindex="-1"></a><span class="fu">list.files</span>()</span></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="database-structure.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="creating-visuals-with-our-dataset.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/2_Data_Wrangling.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

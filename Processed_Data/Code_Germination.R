@@ -1,71 +1,85 @@
+# In this code we clean up our dataset to prepare it for analysis
+
+# Load libraries ----
 library(magrittr)
+library(tidyverse)
+# I typically don't prefer to load tidyverse, but for cleaning data it can make
+# some tasks quicker
+
+# Load data
+# If we open up our R project our paths become short
 getwd()
-setwd("~/Experiments_R/Sandra_GH_2023/Raw_Data")
+setwd("/Raw_Data")
 getwd()
 list.files()
 Germ<-read.csv("Germination.csv", header=T)
 head(Germ, 20)
 sapply(Germ, class)
 
-#Drop columns we don't need
-#row, column
+# Drop columns we don't need
+# row, column
 Germ <- Germ[ , -c(7, 8, 9)]
+
+# an alternative way (in tidyverse)
+Germ <- Germ %>% 
+  select(-c(Observer:Checked_by)) 
+# in tidyverse you can write col names as they appear
 head(Germ, 2)
 
-#Change class
-#Old classes 
+# Change class
+# Old classes 
 sapply(Germ, class)
-#Factor = (species, column, row, salinity)
-#Date = date
+# Factor = (species, column, row, salinity)
+# Date = date
 
-#Slow way to change factor
+# Slow way to change factor
 Germ$Species <- as.factor(Germ$Species)
 class(Germ$Species)
 
-#Fast way to change factor (multiple columns at once)
+# Fast way to change factor (multiple columns at once)
 factor_cols <- c("Species", "Column", "Row", "Salinity")
 factor_cols
+
 
 Germ[factor_cols]<-lapply(Germ[factor_cols], as.factor)
 sapply(Germ, class)
 
-#library(lubridate) #one way to call a package is to load it
-#im unsure what to do with lubridate
-#put '?lubridate' directly into console and the help file will come up
+# library(lubridate) #one way to call a package is to load it
+# im unsure what to do with lubridate
+# put '?lubridate' directly into console and the help file will come up
 Germ$Date <- lubridate::mdy(Germ$Date)
 class(Germ$Date)
 
 which(is.na(Germ$Emergence))
-#no NAs 
+# no NAs 
 
-tail(Germ) #check how many rows we have #here it is 480
+tail(Germ) # check how many rows we have # here it is 480
 
-#If we had NAs that we wished to remove we could
+# If we had NAs that we wished to remove we could
 Germ <- na.omit(Germ)
-tail(Germ) #this works but is annoying because it prints your entire DF
-which(is.na(Germ)) #This specifies which row NA's (or other functions) occur on
+tail(Germ) # this works but is annoying because it prints your entire DF
+which(is.na(Germ)) # This specifies which row NA's (or other functions) occur on
 
 
 
-#Lets check values in all of our columns to make sure we have what we expec
+# Lets check values in all of our columns to make sure we have what we expect
 min(Germ$Emergence)
 max(Germ$Emergence)
 
 
-levels(Germ$Species) #one way to check factor levels (check for typos)
-#levels(Germ[ , 4)]) #Different way to check factor levels
+levels(Germ$Species) # one way to check factor levels (check for typos)
+# levels(Germ[ , 4)]) #Different way to check factor levels
 
-#This is the better way, because its easier to read what you're doing
+# This is the better way, because its easier to read what you're doing
 levels(Germ$Column)
 levels(Germ$Row)
 levels(Germ$Salinity)
 
-#Let's create a new column
-day <- seq(from = 3, to = 30, by = 3)
-day
+# Let's create a new column
+
 unique(Germ$Date)
 
-#Adding a column for monitoring day(s)
+# Adding a column for monitoring day(s)
 Germ <- Germ %>%
   dplyr::mutate(Day = dplyr::case_when(
                           Date == "2023-01-30" ~ 3,
@@ -80,7 +94,7 @@ Germ <- Germ %>%
                           Date == "2023-02-27" ~ 31
   ))
 
-#We will remove DISP from our analyses and graphs, because it had such low germination
+# We will remove DISP from our analyses and graphs, because it had such low germination
 temp <- Germ %>% dplyr::filter(Species == "DISP") 
 head(temp)
 sum(temp$Emergence) #3 germination total
@@ -91,17 +105,17 @@ Germ$Emergence[Germ$Species == "SARU" & Germ$Salinity == "40" &
                        Germ$Emergence != "0"] <- 0
 
 
-#480 in Germ minus 120 temp = 360 after removing DISP
-#vector of species to keep 
+# 480 in Germ minus 120 temp = 360 after removing DISP
+# vector of species to keep 
 vec <- c("PHAU", "ALOC", "SARU")
 Germ <- Germ %>%
   dplyr::filter(Species %in% vec)
 
 
-#Lets save your dataframe, its still "raw", but its cleaned up 
-#And we dont want to do all this cleaning in the future
+# Lets save your dataframe, its still "raw", but its cleaned up 
+# And we dont want to do all this cleaning in the future
 
-#Save data object
+# Save data object
 getwd() #where are we again?
 setwd("~/Experiments_R/Sandra_GH_2023/Processed_Data")
 

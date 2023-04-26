@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 1 Database Structure | A Minimal Book Example</title>
+  <title>Chapter 1 Database Structure | Salinity and Germination for 3 native species and invasive Phragmites australis</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.33 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 1 Database Structure | A Minimal Book Example" />
+  <meta property="og:title" content="Chapter 1 Database Structure | Salinity and Germination for 3 native species and invasive Phragmites australis" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
@@ -19,17 +19,17 @@ set in the _output.yml file.</p>" />
   <meta name="github-repo" content="rstudio/bookdown-demo" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 1 Database Structure | A Minimal Book Example" />
+  <meta name="twitter:title" content="Chapter 1 Database Structure | Salinity and Germination for 3 native species and invasive Phragmites australis" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
   
 
-<meta name="author" content="John Doe" />
+<meta name="author" content="Maddie Houde" />
 
 
-<meta name="date" content="2023-04-12" />
+<meta name="date" content="2023-04-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -37,7 +37,7 @@ set in the _output.yml file.</p>" />
   
   
 <link rel="prev" href="index.html"/>
-
+<link rel="next" href="data-wrangling.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -149,6 +149,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.2" data-path="database-structure.html"><a href="database-structure.html#build-database-tables"><i class="fa fa-check"></i><b>1.2</b> Build database tables</a></li>
 <li class="chapter" data-level="1.3" data-path="database-structure.html"><a href="database-structure.html#read-our-csv-files-and-connect-them"><i class="fa fa-check"></i><b>1.3</b> Read our CSV files and connect them</a></li>
 </ul></li>
+<li class="chapter" data-level="2" data-path="data-wrangling.html"><a href="data-wrangling.html"><i class="fa fa-check"></i><b>2</b> Data Wrangling</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="data-wrangling.html"><a href="data-wrangling.html#load-required-r-packages-and-raw-data"><i class="fa fa-check"></i><b>2.1</b> Load required R packages and raw data</a></li>
+<li class="chapter" data-level="2.2" data-path="data-wrangling.html"><a href="data-wrangling.html#changing-column-class"><i class="fa fa-check"></i><b>2.2</b> Changing column class</a></li>
+<li class="chapter" data-level="2.3" data-path="data-wrangling.html"><a href="data-wrangling.html#explore-the-data-frame"><i class="fa fa-check"></i><b>2.3</b> Explore the data frame</a></li>
+<li class="chapter" data-level="2.4" data-path="data-wrangling.html"><a href="data-wrangling.html#adding-a-column"><i class="fa fa-check"></i><b>2.4</b> Adding a column</a></li>
+<li class="chapter" data-level="2.5" data-path="data-wrangling.html"><a href="data-wrangling.html#removing-filtering-data"><i class="fa fa-check"></i><b>2.5</b> Removing (filtering) data</a></li>
+<li class="chapter" data-level="2.6" data-path="data-wrangling.html"><a href="data-wrangling.html#changing-incorrect-data"><i class="fa fa-check"></i><b>2.6</b> Changing incorrect data</a></li>
+<li class="chapter" data-level="2.7" data-path="data-wrangling.html"><a href="data-wrangling.html#save-your-data-object-for-future-use"><i class="fa fa-check"></i><b>2.7</b> Save your data object for future use</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html"><i class="fa fa-check"></i><b>3</b> Creating Visuals with our dataset</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html#load-our-previously-cleaned-dataset"><i class="fa fa-check"></i><b>3.1</b> Load our previously cleaned dataset</a></li>
+<li class="chapter" data-level="3.2" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html#prepare-dataset-to-create-a-graph-showing-cumulative-germination-counts"><i class="fa fa-check"></i><b>3.2</b> Prepare dataset to create a graph showing cumulative germination counts</a></li>
+<li class="chapter" data-level="3.3" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html#cumulative-germination-graph"><i class="fa fa-check"></i><b>3.3</b> Cumulative Germination Graph</a></li>
+<li class="chapter" data-level="3.4" data-path="creating-visuals-with-our-dataset.html"><a href="creating-visuals-with-our-dataset.html#cumulative-germination-graph-1"><i class="fa fa-check"></i><b>3.4</b> Cumulative Germination Graph</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="analyze-data.html"><a href="analyze-data.html"><i class="fa fa-check"></i><b>4</b> Analyze data</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="analyze-data.html"><a href="analyze-data.html#load-data."><i class="fa fa-check"></i><b>4.1</b> Load data.</a></li>
+<li class="chapter" data-level="4.2" data-path="analyze-data.html"><a href="analyze-data.html#remove-40-ppt"><i class="fa fa-check"></i><b>4.2</b> Remove 40 PPT</a></li>
+<li class="chapter" data-level="4.3" data-path="analyze-data.html"><a href="analyze-data.html#poisson-model"><i class="fa fa-check"></i><b>4.3</b> Poisson model</a></li>
+<li class="chapter" data-level="4.4" data-path="analyze-data.html"><a href="analyze-data.html#poisson-model-diagnostic-plots"><i class="fa fa-check"></i><b>4.4</b> Poisson model diagnostic plots</a></li>
+<li class="chapter" data-level="4.5" data-path="analyze-data.html"><a href="analyze-data.html#negative-binomial-model"><i class="fa fa-check"></i><b>4.5</b> Negative binomial model</a></li>
+<li class="chapter" data-level="4.6" data-path="analyze-data.html"><a href="analyze-data.html#fixed-effects-prior"><i class="fa fa-check"></i><b>4.6</b> Fixed effects prior</a></li>
+<li class="chapter" data-level="4.7" data-path="analyze-data.html"><a href="analyze-data.html#weaker-fixed-effects-priors"><i class="fa fa-check"></i><b>4.7</b> Weaker fixed effects priors</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="drawing-further-inference.html"><a href="drawing-further-inference.html"><i class="fa fa-check"></i><b>5</b> Drawing further inference</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="drawing-further-inference.html"><a href="drawing-further-inference.html#pairwise-comparison"><i class="fa fa-check"></i><b>5.1</b> Pairwise comparison</a></li>
+<li class="chapter" data-level="5.2" data-path="drawing-further-inference.html"><a href="drawing-further-inference.html#conclusions"><i class="fa fa-check"></i><b>5.2</b> Conclusions</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 
@@ -161,7 +193,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Salinity and Germination for 3 native species and invasive Phragmites australis</a>
           </h1>
         </div>
 
@@ -225,22 +257,22 @@ Figure 1.1: Figure 1. Database Structure
 <pre><code>## [1] 0</code></pre>
 <p>Last, we will build the EC_Final table.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="database-structure.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbExecute</span>(Sandra_db, <span class="st">&quot;CREATE TABLE EC_Final(</span></span>
-<span id="cb14-2"><a href="database-structure.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">Sample varchar(8) NOT NULL,</span></span>
-<span id="cb14-3"><a href="database-structure.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">Start_Time varchar(12) NOT NULL,</span></span>
-<span id="cb14-4"><a href="database-structure.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="st">Soil_Weight_g double(10) NOT NULL,</span></span>
-<span id="cb14-5"><a href="database-structure.html#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">Water_Rate_mL double(10) NOT NULL,</span></span>
-<span id="cb14-6"><a href="database-structure.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">Time_of_Measurement varchar(12) NOT NULL,</span></span>
-<span id="cb14-7"><a href="database-structure.html#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">EC_microS_cm integer(6) NOT NULL,</span></span>
-<span id="cb14-8"><a href="database-structure.html#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="st">PSU double(4) NOT NULL,</span></span>
-<span id="cb14-9"><a href="database-structure.html#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="st">Temperature_C double(4) NOT NULL,</span></span>
-<span id="cb14-10"><a href="database-structure.html#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="st">ECe_microS_cm double(15) NOT NULL,</span></span>
-<span id="cb14-11"><a href="database-structure.html#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="st">ECe_dS_m double(4) NOT NULL,</span></span>
-<span id="cb14-12"><a href="database-structure.html#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="st">PSU_e double(4) NOT NULL,</span></span>
-<span id="cb14-13"><a href="database-structure.html#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="st">Target_Salinity varchar(5) NOT NULL,</span></span>
-<span id="cb14-14"><a href="database-structure.html#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="st">remeasure varchar(75),</span></span>
-<span id="cb14-15"><a href="database-structure.html#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="st">Species_Tmt_Pos varchar(15) NOT NULL,</span></span>
-<span id="cb14-16"><a href="database-structure.html#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="st">FOREIGN KEY (Species_Tmt_Pos) REFERENCES Sample_Location(Species_Tmt_Pos),</span></span>
-<span id="cb14-17"><a href="database-structure.html#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="st">PRIMARY KEY (Sample)</span></span>
+<span id="cb14-2"><a href="database-structure.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="st">auto_id integer PRIMARY KEY AUTOINCREMENT,</span></span>
+<span id="cb14-3"><a href="database-structure.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="st">Sample varchar(8) NOT NULL,</span></span>
+<span id="cb14-4"><a href="database-structure.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="st">Start_Time varchar(12) NOT NULL,</span></span>
+<span id="cb14-5"><a href="database-structure.html#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="st">Soil_Weight_g double(10) NOT NULL,</span></span>
+<span id="cb14-6"><a href="database-structure.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="st">Water_Rate_mL double(10) NOT NULL,</span></span>
+<span id="cb14-7"><a href="database-structure.html#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="st">Time_of_Measurement varchar(12) NOT NULL,</span></span>
+<span id="cb14-8"><a href="database-structure.html#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="st">EC_microS_cm integer(6) NOT NULL,</span></span>
+<span id="cb14-9"><a href="database-structure.html#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="st">PSU double(4) NOT NULL,</span></span>
+<span id="cb14-10"><a href="database-structure.html#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="st">Temperature_C double(4) NOT NULL,</span></span>
+<span id="cb14-11"><a href="database-structure.html#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="st">ECe_microS_cm double(15) NOT NULL,</span></span>
+<span id="cb14-12"><a href="database-structure.html#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="st">ECe_dS_m double(4) NOT NULL,</span></span>
+<span id="cb14-13"><a href="database-structure.html#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="st">PSU_e double(4) NOT NULL,</span></span>
+<span id="cb14-14"><a href="database-structure.html#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="st">Target_Salinity varchar(5) NOT NULL,</span></span>
+<span id="cb14-15"><a href="database-structure.html#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="st">premeasure varchar(75),</span></span>
+<span id="cb14-16"><a href="database-structure.html#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="st">Species_Tmt_Pos varchar(15) NOT NULL,</span></span>
+<span id="cb14-17"><a href="database-structure.html#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="st">FOREIGN KEY (Species_Tmt_Pos) REFERENCES Sample_Location(Species_Tmt_Pos)</span></span>
 <span id="cb14-18"><a href="database-structure.html#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="st">);&quot;</span>)</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Let’s check these tables using dbGetQuery to ensure they meet our needs.</p>
@@ -254,11 +286,11 @@ Figure 1.1: Figure 1. Database Structure
 ##  [9] Notes           Checked_by      Species_Tmt_Pos
 ## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="database-structure.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM EC_Final;&quot;</span>)</span></code></pre></div>
-<pre><code>##  [1] Sample              Start_Time          Soil_Weight_g      
-##  [4] Water_Rate_mL       Time_of_Measurement EC_microS_cm       
-##  [7] PSU                 Temperature_C       ECe_microS_cm      
-## [10] ECe_dS_m            PSU_e               Target_Salinity    
-## [13] remeasure           Species_Tmt_Pos    
+<pre><code>##  [1] auto_id             Sample              Start_Time         
+##  [4] Soil_Weight_g       Water_Rate_mL       Time_of_Measurement
+##  [7] EC_microS_cm        PSU                 Temperature_C      
+## [10] ECe_microS_cm       ECe_dS_m            PSU_e              
+## [13] Target_Salinity     premeasure          Species_Tmt_Pos    
 ## &lt;0 rows&gt; (or 0-length row.names)</code></pre>
 </div>
 <div id="read-our-csv-files-and-connect-them" class="section level2 hasAnchor" number="1.3">
@@ -288,7 +320,7 @@ Figure 1.1: Figure 1. Database Structure
 ##   Time_of_Measurement EC_microS_cm  PSU Temperature_C ECe_microS_cm ECe_dS_m
 ## 1          1:33:00 PM         2660   NA            NA                     NA
 ## 2          1:59:00 PM        27450 16.8         15.64       40406.4    40.41
-##   PSU_e Target_Salinity                    remeasure
+##   PSU_e Target_Salinity                   premeasure
 ## 1    NA       Adriennes                             
 ## 2 24.73              40 20210 micS/cm, 11.41 psu, na</code></pre>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="database-structure.html#cb27-1" aria-hidden="true" tabindex="-1"></a>EC_Final <span class="ot">&lt;-</span> EC_Final[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">14</span>, <span class="dv">2</span>)]</span></code></pre></div>
@@ -326,19 +358,19 @@ Figure 1.1: Figure 1. Database Structure
 ## 4         SJ ALOC_Fresh_C1R1
 ## 5         SJ    PHAU_40_C1R2</code></pre>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="database-structure.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dbGetQuery</span>(Sandra_db, <span class="st">&quot;SELECT * FROM EC_Final LIMIT 5;&quot;</span>)</span></code></pre></div>
-<pre><code>##     Sample Start_Time Soil_Weight_g Water_Rate_mL Time_of_Measurement
-## 1 C2-R3-DT 1:57:00 PM        10.304         51.52          1:59:00 PM
-## 2 C1-R4-ST 2:18:00 PM         7.778         38.90          2:45:00 PM
-## 3 C1-R4-SB 2:21:00 PM         7.297         36.45          2:51:00 PM
-## 4 C3-R4-AB 2:25:00 PM         8.166         40.83          2:53:00 PM
-## 5 C3-R4-AT 2:27:00 PM         8.196         40.98          2:56:00 PM
+<pre><code>##   auto_id   Sample Start_Time Soil_Weight_g Water_Rate_mL Time_of_Measurement
+## 1       1 C2-R3-DT 1:57:00 PM        10.304         51.52          1:59:00 PM
+## 2       2 C1-R4-ST 2:18:00 PM         7.778         38.90          2:45:00 PM
+## 3       3 C1-R4-SB 2:21:00 PM         7.297         36.45          2:51:00 PM
+## 4       4 C3-R4-AB 2:25:00 PM         8.166         40.83          2:53:00 PM
+## 5       5 C3-R4-AT 2:27:00 PM         8.196         40.98          2:56:00 PM
 ##   EC_microS_cm   PSU Temperature_C ECe_microS_cm ECe_dS_m PSU_e Target_Salinity
 ## 1        27450 16.80         15.64      40406.40    40.41 24.73              40
 ## 2        46170 29.99         15.53      51314.66    51.31 33.33              40
 ## 3        46330 30.02         15.81      48249.39    48.25 31.26              40
 ## 4        39840 25.34         16.05      46476.21    46.48 29.56              25
 ## 5        22060 13.34         15.70      25829.11    25.83 15.62              25
-##                            remeasure Species_Tmt_Pos
+##                           premeasure Species_Tmt_Pos
 ## 1       20210 micS/cm, 11.41 psu, na    DISP_40_C2R3
 ## 2   16510 micS/cm, 9.63 psu, 20.51 C    SARU_40_C1R4
 ## 3 24170 micS/cm, 1475 psu, 20.76   C    SARU_40_C1R4
@@ -352,8 +384,8 @@ Figure 1.1: Figure 1. Database Structure
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-wrangling.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -384,7 +416,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USERNAME/REPO/edit/BRANCH/Database.Rmd",
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/1_Database.Rmd",
 "text": "Edit"
 },
 "history": {
