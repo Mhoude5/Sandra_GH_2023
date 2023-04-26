@@ -3,6 +3,7 @@
 .Rhistory
 *.png
 !docs/*.png
+!docs/_main_files/figure-html/*.png
 /Output/
 /Raw_Data/
 .Rproj/
