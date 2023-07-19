@@ -6,7 +6,7 @@
 
 library(tidyverse) #for graphing etc
 getwd()
-setwd("../Raw_Data")
+setwd("./Raw_Data")
 list.files()
 EC <- read.csv("EC_Final.csv", header = T)
 EC_usual <- read.csv("USUAL_EC.csv", header = T, skip = 13)
